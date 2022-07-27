@@ -1,0 +1,27 @@
+.LogoSearch {
+  display: flex;
+  gap: 0.75rem;
+}
+.serach {
+  display: flex;
+  background-color: var(--inputColor);
+  border-radius: 10px;
+  padding: 5px;
+}
+.serach > input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 18px;
+  padding: 5px 15px;
+}
+.s-icon {
+  background: linear-gradient(06.23deg, #f99827, #f95f35 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  padding: 3px;
+  color: wheat;
+}
