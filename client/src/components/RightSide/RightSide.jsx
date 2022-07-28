@@ -3,6 +3,7 @@ import "./RightSide.css";
 import { AiFillHome, AiOutlineComment } from "react-icons/ai";
 import { MdOutlineNotifications, MdSettings } from "react-icons/md";
 import TrendCard from "../TrendCard/TrendCard";
+import ShareModal from "../ShareModal/ShareModal";
 
 const RightSide = () => {
   const [modalOpened, setModalOpened] = useState(false);
@@ -44,6 +45,7 @@ const RightSide = () => {
       <button className="button r-button" onClick={() => setModalOpened(true)}>
         Share
       </button>
+      <ShareModal modalOpened={modalOpened} setModalOpened={setModalOpened} />
     </div>
   );
 };

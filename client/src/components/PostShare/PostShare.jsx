@@ -52,7 +52,7 @@ const PostShare = () => {
             <FiPlayCircle />
             Video
           </div>
-          <div
+          {/* <div
             className="option"
             style={{
               color: "var(--location)",
@@ -64,7 +64,7 @@ const PostShare = () => {
           >
             <HiOutlineLocationMarker />
             Location
-          </div>
+          </div> */}
           <div
             className="option"
             style={{
