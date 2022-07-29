@@ -1,5 +1,10 @@
 import express from "express";
-import { deleteUser, getUser, updateUser } from "../Controllers/UserController";
+import {
+  deleteUser,
+  followUser,
+  getUser,
+  updateUser,
+} from "../Controllers/UserController";
 
 const router = express.Router();
 
@@ -11,5 +16,8 @@ router.put("/:id", updateUser);
 
 // Delete user
 router.delete(":/id", deleteUser);
+
+// Follow a User
+router.put("/:id", followUser);
 
 export default router;
