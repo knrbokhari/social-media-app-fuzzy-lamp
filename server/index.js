@@ -2,8 +2,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import AuthRoutes from "./Routes/AuthRouth.js";
-import UserRoutes from "./Routes/UserRoutes.js";
+import AuthRoute from "./Routes/AuthRoute.js";
+import UserRoute from "./Routes/UserRoute.js";
+import PostRoute from "./Routes/PostRoute.js";
 
 // middlewares
 dotenv.config();
@@ -26,8 +27,9 @@ mongoose
   });
 
 // routes
-app.use("/auth", AuthRoutes);
-app.use("/user", UserRoutes);
+app.use("/auth", AuthRoute);
+app.use("/user", UserRoute);
+app.use("/post", UserRoute);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
