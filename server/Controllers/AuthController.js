@@ -7,6 +7,11 @@ export const registerUser = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPass = await bcrypt.hash(password, salt);
 
+  const testUN = await UserModel.findOne({ username: username });
+  if (testUN) {
+    return res.status(409).send("Username Already Exists");
+  }
+
   const newUser = new UserModel({
     username,
     password: hashedPass,
