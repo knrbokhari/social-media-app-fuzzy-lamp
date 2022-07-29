@@ -2,18 +2,21 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import AuthRoutes from "./Routes/AuthRouth.js";
 
-const app = express();
+// middlewares
 dotenv.config();
 const port = process.env.PORT || 5000;
+const app = express();
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
+// connecting to mongobd
 mongoose
-  .connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.4wilm.mongodb.net/SocialMedia?retryWrites=true&w=majority`,
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(`${process.env.MONGO_DB}`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("DB connected");
   })
@@ -21,9 +24,8 @@ mongoose
     throw err;
   });
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// routes
+app.use("/auth", AuthRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
