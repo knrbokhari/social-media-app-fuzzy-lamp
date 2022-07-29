@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import AuthRoutes from "./Routes/AuthRouth.js";
+import UserRoutes from "./Routes/UserRoutes.js";
 
 // middlewares
 dotenv.config();
@@ -26,6 +27,7 @@ mongoose
 
 // routes
 app.use("/auth", AuthRoutes);
+app.use("/user", UserRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

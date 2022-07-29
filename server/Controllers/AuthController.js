@@ -7,8 +7,8 @@ export const registerUser = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPass = await bcrypt.hash(password, salt);
 
-  const cheakUserName = await UserModel.findOne({ username: username });
-  if (cheakUserName) {
+  const checkUserName = await UserModel.findOne({ username: username });
+  if (checkUserName) {
     return res.status(409).send("Username Already Exists");
   }
 
