@@ -24,4 +24,7 @@ router.delete("/:id", deletePost);
 // like/dislike a post
 router.put("/:id", likeAndDislikePost);
 
+// Get Timeline POsts
+router.get("/:id/timeline", getTimelinePosts);
+
 export default router;
