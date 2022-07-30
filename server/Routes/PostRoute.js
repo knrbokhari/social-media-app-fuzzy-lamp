@@ -3,6 +3,7 @@ import {
   createPost,
   deletePost,
   getPost,
+  getTimelinePosts,
   likeAndDislikePost,
   updatePost,
 } from "../Controllers/PostController.js";
