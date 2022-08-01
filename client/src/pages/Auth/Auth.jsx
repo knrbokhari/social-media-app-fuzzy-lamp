@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./Auth.css";
 import Logo from "../../img/logo.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logIn, signUp } from "../../actions/AuthAction";
 // import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
+  const loading = useSelector((state) => state.authReducer.loading);
   const [isSignUp, setIsSignUp] = useState(false);
   const dispatch = useDispatch();
   // const navigate = useNavigate();
@@ -148,8 +149,12 @@ const Auth = () => {
                 : "Don't have an account Sign up"}
             </span>
           </div>
-          <button className="button infoButton" type="submit">
-            {isSignUp ? "SignUp" : "Login"}
+          <button
+            className="button infoButton"
+            type="Submit"
+            disabled={loading}
+          >
+            {loading ? "Loading..." : isSignUp ? "SignUp" : "Login"}
           </button>
         </form>
       </div>
