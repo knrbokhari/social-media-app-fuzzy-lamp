@@ -3,13 +3,13 @@ import "./Auth.css";
 import Logo from "../../img/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn, signUp } from "../../actions/AuthAction";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const loading = useSelector((state) => state.authReducer.loading);
   const [isSignUp, setIsSignUp] = useState(false);
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [data, setData] = useState({
     firstname: "",
@@ -43,10 +43,10 @@ const Auth = () => {
     e.preventDefault();
     if (isSignUp) {
       data.password === data.confirmpass
-        ? dispatch(signUp(data))
+        ? dispatch(signUp(data, navigate))
         : setConfirmPass(false);
     } else {
-      dispatch(logIn(data));
+      dispatch(logIn(data, navigate));
     }
   };
 
