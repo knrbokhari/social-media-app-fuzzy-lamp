@@ -5,7 +5,9 @@ import Share from "../../img/share.png";
 import Heart from "../../img/like.png";
 import NotLike from "../../img/notlike.png";
 import { useSelector } from "react-redux";
-import { likePost } from "../../api/PostsRequests";
+import { deletePost, likePost } from "../../api/PostsRequests";
+import { Menu, ActionIcon } from "@mantine/core";
+import { BsThreeDots } from "react-icons/bs";
 
 const Post = ({ data }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
@@ -18,13 +20,32 @@ const Post = ({ data }) => {
     liked ? setLikes((prev) => prev - 1) : setLikes((prev) => prev + 1);
   };
 
+  const handleDelete = (id) => {
+    deletePost(id);
+  };
+
   return (
     <div className="Post">
-      <p className="deleteButton">X</p>
+      <div className="deleteButton">
+        <Menu withinPortal position="bottom-end" shadow="sm">
+          <Menu.Target>
+            <ActionIcon>
+              <BsThreeDots />
+            </ActionIcon>
+          </Menu.Target>
+
+          <Menu.Dropdown>
+            <Menu.Item>Edit Post</Menu.Item>
+            <Menu.Item>Preview</Menu.Item>
+            <Menu.Item onClick={() => handleDelete(data._id)}>Delete</Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
+      </div>
       <div className="detail">
         <span>
-          <b>{data?.username}</b>
+          <b>username</b>
         </span>
+        <br />
         <span> {data?.desc}</span>
       </div>
       <img src={data?.image} alt="" />

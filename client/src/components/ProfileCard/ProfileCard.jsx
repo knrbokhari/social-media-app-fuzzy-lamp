@@ -4,7 +4,7 @@ import cover from "../../img/cover.jpg";
 import profile from "../../img/profileImg.jpg";
 
 const ProfileCard = () => {
-  const ProfilePage = true;
+  const ProfilePage = false;
   return (
     <div className="ProfileCard">
       <div className="ProfileInames">
