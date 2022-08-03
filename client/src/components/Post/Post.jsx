@@ -5,29 +5,47 @@ import Share from "../../img/share.png";
 import Heart from "../../img/like.png";
 import NotLike from "../../img/notlike.png";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const Post = ({ data }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
+  const [liked, setLiked] = useState(data.likes.includes(user._id));
+  const [likes, setLikes] = useState(data.likes.length);
+
+  const handleliked = () => {};
+
   return (
     <div className="Post">
-      <img src={data.img} alt="" />
+      <div className="detail">
+        <span>
+          <b>{data?.username}</b>
+        </span>
+        <br />
+        <span> {data?.desc}</span>
+      </div>
+      <img src={data?.image} alt="" />
 
       <div className="postReact">
-        <img src={data.liked ? Heart : NotLike} alt="" />
+        <img
+          src={liked ? Heart : NotLike}
+          alt=""
+          style={{ cursor: "pointer" }}
+          onClick={handleliked}
+        />
         <img src={Comment} alt="" />
         <img src={Share} alt="" />
       </div>
 
       <span style={{ color: "var(--gray)", fontSize: "12px" }}>
-        {data.likes} likes
+        {likes} likes
       </span>
 
-      <div className="detail">
+      {/* <div className="detail">
         <span>
           <b>{data.name}</b>
         </span>
         <span> {data.desc}</span>
-      </div>
+      </div> */}
     </div>
   );
 };

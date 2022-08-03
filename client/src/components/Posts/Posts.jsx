@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "./Posts.css";
-import { PostsData } from "../../Data/PostsData";
 import Post from "../Post/Post";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -13,7 +12,7 @@ const Posts = () => {
   let { posts, loading } = useSelector((state) => state.PostReducer);
   useEffect(() => {
     dispatch(getTimelinePosts(user._id));
-  }, []);
+  }, [dispatch, user._id]);
 
   if (!posts) return "No Posts";
   if (params.id) posts = posts.filter((post) => post.userId === params.id);

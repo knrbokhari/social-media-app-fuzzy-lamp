@@ -1,15 +1,18 @@
 import React, { useRef, useState } from "react";
 import "./PostShare.css";
-import ProfileImage from "../../img/profileImg.jpg";
 import { FiImage, FiPlayCircle } from "react-icons/fi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { MdClear } from "react-icons/md";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const PostShare = () => {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authReducer.authData);
+  const loading = useSelector((state) => state.PostReducer.uploading);
+
+  // console.log(loading);
 
   const [image, setImage] = useState(null);
   const [shareImage, setShareImage] = useState(null);
@@ -27,16 +30,45 @@ const PostShare = () => {
     }
   };
 
-  // console.log(user._id);
-
-  const imageStorageKey = "71e150240c17a375529a9b50e8eb320e";
+  // const imageStorageKey = "71e150240c17a375529a9b50e8eb320e";
 
   const handleShare = async () => {
     const formData = new FormData();
     formData.append("image", shareImage);
-    const url = `https://api.imgbb.com/1/upload?key=${imageStorageKey}`;
+    const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imageStorageKey}`;
 
-    console.log(shareImage);
+    // console.log(shareImage);
+
+    const data = {
+      userId: user._id,
+      desc: postRef.current.value || "",
+      image: urlLink,
+    };
+    // console.log(data);
+
+    // crate new post
+    const createPost = async () => {
+      if (data.image !== "") {
+        dispatch({ type: "UPLOAD_START" });
+        await axios
+          .post("http://localhost:5000/posts", data)
+          .then((res) => {
+            console.log(res);
+            setImage(null);
+            postRef.current.value = "";
+            dispatch({ type: "UPLOAD_SUCCESS" });
+          })
+          .catch((err) => {
+            console.log(err);
+            dispatch({ type: "UPLOAD_FAIL" });
+          });
+      }
+    };
+
+    // image not found
+    if (!data.image) {
+      createPost();
+    }
 
     // uplode image to imgbb
     await fetch(url, {
@@ -44,9 +76,11 @@ const PostShare = () => {
       body: formData,
     })
       .then((res) => res.json())
-      .then(async (result) => {
+      .then((result) => {
+        console.log(result);
         if (result.success) {
           setUrlLink(result.data.url);
+          createPost();
         }
       })
       .catch((error) => {
@@ -54,26 +88,6 @@ const PostShare = () => {
       });
 
     //
-    const data = {
-      userId: user._id,
-      desc: postRef.current.value || "",
-      image: urlLink,
-    };
-    console.log(data);
-
-    // crate new post
-    if (urlLink || postRef.current.value) {
-      await axios
-        .post("http://localhost:5000/posts", data)
-        .then((res) => {
-          // console.log(res);
-          setImage(null);
-          postRef.current.value = "";
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
   };
 
   return (
@@ -135,8 +149,12 @@ const PostShare = () => {
             <FaRegCalendarCheck />
             Shedule
           </div>
-          <button className="button ps-button" onClick={handleShare}>
-            Share
+          <button
+            className="button ps-button"
+            onClick={handleShare}
+            disabled={loading}
+          >
+            {loading ? "uploading" : "Share"}
           </button>
           <div style={{ display: "none" }}>
             <input
