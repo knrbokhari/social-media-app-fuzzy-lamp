@@ -5,6 +5,19 @@
   background-color: var(--cardColor);
   border-radius: 1rem;
   gap: 1rem;
+  position: relative;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #f95f35;
+}
+.deleteButton:hover {
+  color: red;
 }
 
 .Post > img {

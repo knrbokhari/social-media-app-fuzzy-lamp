@@ -23,7 +23,7 @@ router.put("/:id", updatePost);
 router.delete("/:id", deletePost);
 
 // like/dislike a post
-router.put("/:id", likeAndDislikePost);
+router.put("/:id/like", likeAndDislikePost);
 
 // Get Timeline POsts
 router.get("/:id/timeline", getTimelinePosts);
