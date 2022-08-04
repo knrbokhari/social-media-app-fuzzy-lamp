@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import "./InfoCard.css";
 import { FaPencilAlt } from "react-icons/fa";
 import ProfileModal from "../ProfileModal/ProfileModal";
+import { useSelector } from "react-redux";
 
 const InfoCard = () => {
   const [modalOpened, setModalOpened] = useState(false);
+  const { user } = useSelector((state) => state.authReducer.authData);
+
+  const { about, livesin, worksAt, relationship } = user;
+
   return (
     <div className="InfoCard">
       <div className="infoHead">
@@ -26,21 +31,35 @@ const InfoCard = () => {
         <span>
           <b>Status </b>
         </span>
-        <span>in Relationship</span>
+        <span>{relationship ? `in ${relationship}` : "---"}</span>
       </div>
 
       <div className="info">
         <span>
           <b>Lives in </b>
         </span>
-        <span>Multan</span>
+        <span>{livesin ? livesin : "---"}</span>
+      </div>
+
+      <div className="info">
+        <span>
+          <b>Country </b>
+        </span>
+        <span>{livesin ? livesin : "---"}</span>
       </div>
 
       <div className="info">
         <span>
           <b>Works at </b>
         </span>
-        <span>Zainkeepscode inst</span>
+        <span>{worksAt ? worksAt : "---"}</span>
+      </div>
+
+      <div className="info">
+        <span>
+          <b>About </b>
+        </span>
+        <span>{about ? about : "---"}</span>
       </div>
 
       <button className="button logout-button">Logout</button>
