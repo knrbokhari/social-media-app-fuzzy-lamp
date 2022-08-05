@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./FollowersCard.css";
-import { Followers } from "../../Data/FollowersData";
 import { useSelector } from "react-redux";
 import User from "../User/User";
 import { getAllUser } from "../../api/UserRequests";
@@ -25,6 +24,7 @@ const FollowersCard = ({ location }) => {
       {persons.map((person, id) => {
         if (person._id !== user._id) return <User person={person} key={id} />;
       })}
+
       {!location ? (
         <span onClick={() => setModalOpened(true)}>Show more</span>
       ) : (

@@ -1,7 +1,7 @@
 import React from "react";
 
 const FollowersModal = () => {
-  return <div>FollowersModal</div>;
+  return <div></div>;
 };
 
 export default FollowersModal;

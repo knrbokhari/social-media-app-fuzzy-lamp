@@ -23,9 +23,9 @@ router.put("/:id", updateUser);
 router.delete(":/id", deleteUser);
 
 // Follow a User
-router.put("/:id", followUser);
+router.put("/:id/follow", followUser);
 
 // UnFollow a User
-router.put("/:id", UnFollowUser);
+router.put("/:id/unfollow", UnFollowUser);
 
 export default router;
