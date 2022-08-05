@@ -9,7 +9,7 @@ const ProfileLeft = () => {
     <div className="profileSide">
       <LogoSearch />
       <InfoCard />
-      <FollowersCard />
+      <FollowersCard location={true} />
     </div>
   );
 };
