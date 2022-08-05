@@ -1,16 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./InfoCard.css";
 import { FaPencilAlt } from "react-icons/fa";
 import ProfileModal from "../ProfileModal/ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/AuthAction";
+import { useParams } from "react-router-dom";
+import * as UserApi from "../../api/UserRequests";
 
 const InfoCard = () => {
   const [modalOpened, setModalOpened] = useState(false);
   const { user } = useSelector((state) => state.authReducer.authData);
   const dispatch = useDispatch();
+  const params = useParams();
+  const profileUserId = params.id;
+  const [profileUser, setProfileUser] = useState({});
 
-  const { about, livesin, worksAt, relationship } = user;
+  const { about, livesin, worksAt, relationship } = profileUser;
+
+  useEffect(() => {
+    const fetchProfileUser = async () => {
+      if (profileUserId === user._id) {
+        setProfileUser(user);
+      } else {
+        console.log("fetching");
+        const profileUser = await UserApi.getUser(profileUserId);
+        setProfileUser(profileUser);
+        console.log(profileUser);
+      }
+    };
+    fetchProfileUser();
+  }, [user, profileUserId]);
 
   const handleLogOut = () => {
     dispatch(logout());
@@ -19,18 +38,22 @@ const InfoCard = () => {
   return (
     <div className="InfoCard">
       <div className="infoHead">
-        <h4>Your Info</h4>
-        <div>
-          <FaPencilAlt
-            width="2rem"
-            height="1.2rem"
-            onClick={() => setModalOpened(true)}
-          />
-          <ProfileModal
-            modalOpened={modalOpened}
-            setModalOpened={setModalOpened}
-          />
-        </div>
+        <h4>Profile Info</h4>
+        {user._id === profileUserId ? (
+          <div>
+            <FaPencilAlt
+              width="2rem"
+              height="1.2rem"
+              onClick={() => setModalOpened(true)}
+            />
+            <ProfileModal
+              modalOpened={modalOpened}
+              setModalOpened={setModalOpened}
+            />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
 
       <div className="info">
@@ -68,9 +91,13 @@ const InfoCard = () => {
         <span>{about ? about : "---"}</span>
       </div>
 
-      <button className="button logout-button" onClick={handleLogOut}>
-        Logout
-      </button>
+      {user._id === profileUserId ? (
+        <button className="button logout-button" onClick={handleLogOut}>
+          Logout
+        </button>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
