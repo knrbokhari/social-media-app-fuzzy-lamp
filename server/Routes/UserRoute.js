@@ -5,9 +5,13 @@ import {
   getUser,
   UnFollowUser,
   updateUser,
+  getAllUsers,
 } from "../Controllers/UserController.js";
 
 const router = express.Router();
+
+// get all user
+router.get("/", getAllUsers);
 
 // get user from db
 router.get("/:id", getUser);
