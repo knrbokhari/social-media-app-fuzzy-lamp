@@ -1,7 +1,27 @@
+import React, { useState } from "react";
 import { Modal, useMantineTheme } from "@mantine/core";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { updateUser } from "../../actions/UserAction";
 
-function ProfileModal({ modalOpened, setModalOpened }) {
+const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
   const theme = useMantineTheme();
+  const { password, ...other } = data;
+  const [formData, setFormData] = useState(other);
+  const dispatch = useDispatch();
+  const param = useParams();
+
+  const { user } = useSelector((state) => state.authReducer.authData);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateUser(param.id, formData));
+    setModalOpened(false);
+  };
 
   return (
     <Modal
@@ -16,70 +36,84 @@ function ProfileModal({ modalOpened, setModalOpened }) {
       opened={modalOpened}
       onClose={() => setModalOpened(false)}
     >
-      <form className="infoForm">
-        <h3>Your info</h3>
-
+      <form className="infoForm" onSubmit={handleSubmit}>
+        <h3>Your Info</h3>
         <div>
           <input
+            value={formData.firstname}
+            onChange={handleChange}
             type="text"
-            className="infoInput"
-            name="FirstName"
             placeholder="First Name"
-          />
-
-          <input
-            type="text"
+            name="firstname"
             className="infoInput"
-            name="LastName"
+          />
+          <input
+            value={formData.lastname}
+            onChange={handleChange}
+            type="text"
             placeholder="Last Name"
+            name="lastname"
+            className="infoInput"
           />
         </div>
 
         <div>
           <input
+            value={formData.worksAt}
+            onChange={handleChange}
             type="text"
-            className="infoInput"
-            name="worksAT"
             placeholder="Works at"
+            name="worksAt"
+            className="infoInput"
           />
         </div>
 
         <div>
           <input
+            value={formData.livesIn}
+            onChange={handleChange}
             type="text"
+            placeholder="Lives in"
+            name="livesIn"
             className="infoInput"
-            name="livesIN"
-            placeholder="LIves in"
           />
-
           <input
+            value={formData.country}
+            onChange={handleChange}
             type="text"
-            className="infoInput"
-            name="Country"
             placeholder="Country"
+            name="country"
+            className="infoInput"
           />
         </div>
 
         <div>
           <input
+            value={formData.relationship}
+            onChange={handleChange}
             type="text"
             className="infoInput"
-            placeholder="RelationShip Status"
+            placeholder="Relationship status"
+            name="relationship"
           />
         </div>
 
-
-        <div>
-            Profile Image 
-            <input type="file" name='profileImg'/>
-            Cover Image
-            <input type="file" name="coverImg" />
+        {/* <div>
+          Profile image
+          <input type="file" name="profileImage" onChange={onImageChange} />
         </div>
 
-        <button className="button infoButton">Update</button>
+        <div>
+          Cover image
+          <input type="file" name="coverImage" onChange={onImageChange} />
+        </div> */}
+
+        <button className="button infoButton" type="submit">
+          Update
+        </button>
       </form>
     </Modal>
   );
-}
+};
 
 export default ProfileModal;
