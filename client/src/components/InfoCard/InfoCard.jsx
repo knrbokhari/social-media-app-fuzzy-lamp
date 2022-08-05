@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import "./InfoCard.css";
 import { FaPencilAlt } from "react-icons/fa";
 import ProfileModal from "../ProfileModal/ProfileModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../actions/AuthAction";
 
 const InfoCard = () => {
   const [modalOpened, setModalOpened] = useState(false);
   const { user } = useSelector((state) => state.authReducer.authData);
+  const dispatch = useDispatch();
 
   const { about, livesin, worksAt, relationship } = user;
+
+  const handleLogOut = () => {
+    dispatch(logout());
+  };
 
   return (
     <div className="InfoCard">
@@ -62,7 +68,9 @@ const InfoCard = () => {
         <span>{about ? about : "---"}</span>
       </div>
 
-      <button className="button logout-button">Logout</button>
+      <button className="button logout-button" onClick={handleLogOut}>
+        Logout
+      </button>
     </div>
   );
 };

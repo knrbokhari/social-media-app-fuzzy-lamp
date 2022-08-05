@@ -19,7 +19,6 @@ const ProfileCard = ({ location }) => {
     following,
   } = user;
 
-  const ProfilePage = false;
   return (
     <div className="ProfileCard">
       <div className="ProfileInames">
@@ -48,7 +47,9 @@ const ProfileCard = ({ location }) => {
             <>
               <div className="vl"></div>
               <div className="follow">
-                <span>{posts.length}</span>
+                <span>
+                  {posts.filter((post) => post.userId === user._id).length}
+                </span>
                 <span>Posts</span>
               </div>
             </>
@@ -61,7 +62,7 @@ const ProfileCard = ({ location }) => {
       ) : (
         <span>
           <Link
-            to={`/profile${user._id}`}
+            to={`/profile/${user._id}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
             My Profile
