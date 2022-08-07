@@ -83,3 +83,9 @@
   margin-bottom: 1rem;
   cursor: pointer;
 }
+
+@media (max-width: 991.98px) {
+  .ProfileCard {
+    display: none;
+  }
+}

@@ -5,3 +5,8 @@
   align-items: center;
   overflow: auto;
 }
+@media (max-width: 991.98px) {
+  .profileSide {
+    height: 5vh;
+  }
+}

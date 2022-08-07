@@ -20,3 +20,12 @@
 .trend > span:nth-of-type(2) {
   font-size: 13px;
 }
+
+@media (max-width: 991.98px) {
+  .TrendCard {
+    display: none;
+  }
+  .ShareModal {
+    display: none;
+  }
+}

@@ -42,7 +42,10 @@ const RightSide = () => {
 
       <TrendCard />
 
-      <button className="button r-button" onClick={() => setModalOpened(true)}>
+      <button
+        className="button r-button ShareModal"
+        onClick={() => setModalOpened(true)}
+      >
         Share
       </button>
       <ShareModal modalOpened={modalOpened} setModalOpened={setModalOpened} />

@@ -4,3 +4,18 @@
   grid-template-columns: 18rem auto 18rem;
   gap: 1rem;
 }
+/* @media (max-width: 575.98px) {
+  .home {
+    display: block;
+  }
+} */
+
+@media (max-width: 991.98px) {
+  .home {
+    display: block;
+    position: relative;
+  }
+}
+
+/* @media (min-width: 992px) and (max-width: 1991.98px) {
+} */

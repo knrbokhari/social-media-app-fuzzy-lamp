@@ -54,3 +54,9 @@
   align-self: center;
   cursor: pointer;
 }
+
+@media (max-width: 991.98px) {
+  .FollowersCard {
+    display: none;
+  }
+}

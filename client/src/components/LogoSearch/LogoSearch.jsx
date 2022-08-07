@@ -6,7 +6,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 const LogoSearch = () => {
   return (
     <div className="LogoSearch">
-      <img src={logo} alt="" />
+      <img src={logo} alt="" style={{ width: "35px", height: "30px" }} />
       <div className="serach">
         <input type="text" name="" placeholder="#Exlpore" />
         <div className="s-icon">

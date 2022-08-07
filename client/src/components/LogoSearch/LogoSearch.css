@@ -1,12 +1,15 @@
 .LogoSearch {
   display: flex;
   gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
 }
 .serach {
   display: flex;
   background-color: var(--inputColor);
   border-radius: 10px;
   padding: 5px;
+  max-width: 400px;
 }
 .serach > input {
   background-color: transparent;

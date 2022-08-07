@@ -7,6 +7,7 @@ import {
   likeAndDislikePost,
   updatePost,
 } from "../Controllers/PostController.js";
+import authMiddleWare from "../middleware/AuthMiddleware.js";
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.get("/:id", getPost);
 router.put("/:id", updatePost);
 
 // Delete a post
-router.delete("/:id", deletePost);
+router.delete("/:id", authMiddleWare, deletePost);
 
 // like/dislike a post
 router.put("/:id/like", likeAndDislikePost);

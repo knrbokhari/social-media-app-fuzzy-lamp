@@ -20,3 +20,17 @@
   width: 80%;
   align-self: center;
 }
+
+@media (max-width: 991.98px) {
+  .RightSide {
+    bottom: 0;
+    display: block;
+    height: 5vh;
+    gap: 0;
+  }
+  .navIcons {
+    margin-top: 0;
+    padding: 10px 0;
+    justify-content: space-around;
+  }
+}
