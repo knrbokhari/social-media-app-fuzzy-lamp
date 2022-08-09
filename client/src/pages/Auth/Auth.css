@@ -63,6 +63,10 @@
   flex: 1;
 }
 
+input {
+  width: 100%;
+}
+
 .infoForm > div {
   display: flex;
   gap: 1rem;
@@ -86,4 +90,22 @@
   width: 100%;
   align-items: center;
   justify-content: center;
+}
+@media (max-width: 775.98px) {
+  .Auth {
+    flex-direction: column;
+  }
+  .a-left {
+    gap: 1rem;
+  }
+  .a-left > img {
+    width: 3rem;
+    height: 3rem;
+  }
+  .Webname > h1 {
+    font-size: 2.5rem;
+  }
+  .Webname > h6 {
+    font-size: 0.76rem;
+  }
 }
