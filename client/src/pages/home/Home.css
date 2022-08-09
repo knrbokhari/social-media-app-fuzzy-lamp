@@ -15,6 +15,9 @@
     display: block;
     position: relative;
   }
+  .homePost {
+    width: 89vh;
+  }
 }
 
 /* @media (min-width: 992px) and (max-width: 1991.98px) {

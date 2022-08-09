@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./PostShare.css";
 import { FiImage, FiPlayCircle } from "react-icons/fi";
-import { HiOutlineLocationMarker } from "react-icons/hi";
+// import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { MdClear } from "react-icons/md";
 import axios from "axios";

@@ -20,7 +20,7 @@ const ProfileCard = ({ location }) => {
   } = user;
 
   return (
-    <div className="ProfileCard">
+    <div className={`ProfileCard`}>
       <div className="ProfileInames">
         <img src={coverPicture ? coverPicture : cover} alt="" />
         <img src={profilePicture ? profilePicture : profile} alt="" />

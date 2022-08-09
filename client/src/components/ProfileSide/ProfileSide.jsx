@@ -8,8 +8,10 @@ const ProfileSide = () => {
   return (
     <div className="profileSide">
       <LogoSearch />
-      <ProfileCard />
-      <FollowersCard />
+      <div className="MobileView">
+        <ProfileCard />
+        <FollowersCard />
+      </div>
     </div>
   );
 };

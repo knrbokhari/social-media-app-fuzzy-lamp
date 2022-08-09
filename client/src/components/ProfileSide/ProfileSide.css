@@ -9,4 +9,7 @@
   .profileSide {
     height: 5vh;
   }
+  .MobileView {
+    display: none;
+  }
 }
