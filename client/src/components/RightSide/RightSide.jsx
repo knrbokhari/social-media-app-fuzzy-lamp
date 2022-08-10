@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 const RightSide = () => {
   const user = useSelector((state) => state.authReducer.authData.user);
-  console.log(user);
+  // console.log(user);
 
   const [modalOpened, setModalOpened] = useState(false);
   return (

@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { deletePost, likePost } from "../../api/PostsRequests";
 import { Menu, ActionIcon } from "@mantine/core";
 import { BsThreeDots } from "react-icons/bs";
+import axios from "axios";
 
 const Post = ({ data }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
@@ -22,6 +23,11 @@ const Post = ({ data }) => {
 
   const handleDelete = (id) => {
     deletePost(id);
+    // axios
+    //   .delete(`posts/${id}`)
+    //   // .then((request) => console.log(request))
+    //   .then((response) => console.log(response))
+    //   .then((err) => console.log(err));
   };
 
   return (
