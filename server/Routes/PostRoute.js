@@ -27,6 +27,6 @@ router.delete("/:id", authMiddleWare, deletePost);
 router.put("/:id/like", likeAndDislikePost);
 
 // Get Timeline POsts
-router.get("/:id/timeline", getTimelinePosts);
+router.get("/:id/timeline", authMiddleWare, getTimelinePosts);
 
 export default router;

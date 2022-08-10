@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import "./PostShare.css";
 import { FiImage, FiPlayCircle } from "react-icons/fi";
-// import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { MdClear } from "react-icons/md";
 import axios from "axios";
@@ -20,6 +19,7 @@ const PostShare = () => {
   const [urlLink, setUrlLink] = useState("");
   const [post, setPost] = useState("");
   const imageRef = useRef();
+  const postRef = useRef();
 
   const onImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -42,7 +42,6 @@ const PostShare = () => {
     image: urlLink,
   };
 
-  console.log(post);
   // crate new post
   const createPost = async () => {
     if (data.desc || data.image) {
@@ -52,7 +51,7 @@ const PostShare = () => {
         .then((res) => {
           console.log(res);
           setImage(null);
-          setPost("");
+          postRef.current.value = "";
           dispatch({ type: "UPLOAD_SUCCESS" });
         })
         .catch((err) => {
@@ -100,7 +99,7 @@ const PostShare = () => {
       <div>
         <input
           type="text"
-          // ref={postRef}
+          ref={postRef}
           onChange={onPostChange}
           placeholder="What's happening?"
         />

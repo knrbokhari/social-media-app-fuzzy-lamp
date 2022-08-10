@@ -1,28 +1,57 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Posts.css";
 import Post from "../Post/Post";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getTimelinePosts } from "../../actions/PostsAction";
+import axios from "axios";
+import { logout } from "../../actions/AuthAction";
 
 const Posts = () => {
   const params = useParams();
-  const dispatch = useDispatch();
+  let [posts, setPosts] = useState([]);
+  const [deletedPost, setDeletedPost] = useState(false);
   const { user } = useSelector((state) => state.authReducer.authData);
-  let { posts, loading } = useSelector((state) => state.PostReducer);
-  useEffect(() => {
-    dispatch(getTimelinePosts(user._id));
-  }, [dispatch, user._id]);
+  const dispatch = useDispatch();
+
+  useEffect(
+    () => {
+      const fetchPosts = async () => {
+        axios
+          .get(`/posts/${user._id}/timeline`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${
+                JSON.parse(localStorage.getItem("profile")).token
+              }`,
+            },
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              setPosts(res.data);
+              setDeletedPost(false);
+            }
+          })
+          .catch((err) => {
+            if (err.response.status === 401 || err.response.status === 403) {
+              dispatch(logout());
+            }
+          });
+      };
+      fetchPosts();
+    },
+    [user._id],
+    posts,
+    deletedPost
+  );
 
   if (!posts) return "No Posts";
   if (params.id) posts = posts.filter((post) => post.userId === params.id);
+
   return (
     <div className="Posts">
-      {loading
-        ? "Fetching posts...."
-        : posts?.map((post, id) => {
-            return <Post data={post} key={id} />;
-          })}
+      {posts?.map((post, id) => {
+        return <Post data={post} key={id} setDeleteAPost={setDeletedPost} />;
+      })}
     </div>
   );
 };

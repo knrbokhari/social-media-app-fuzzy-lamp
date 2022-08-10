@@ -1,4 +1,5 @@
 import axios from "axios";
+import { logout } from "../actions/AuthAction";
 
 const API = axios.create({ baseURL: "http://localhost:5000" });
 
@@ -9,6 +10,12 @@ API.interceptors.request.use((req) => {
     }`;
   }
   return req;
+});
+
+API.interceptors.response.use((res) => {
+  if (res.status === 403) {
+    logout();
+  }
 });
 
 export const createPost = () => API.post("/posts/");
