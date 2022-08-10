@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Auth from "./pages/Auth/Auth";
+import EditPost from "./pages/EditPost/EditPost";
 import Home from "./pages/home/Home";
 import Profile from "./pages/Profile/Profile";
 
@@ -11,9 +12,6 @@ function App() {
     <div className="App">
       <div className="blur" style={{ top: "-18%", right: "0" }}></div>
       <div className="blur" style={{ top: "36%", left: "-8rem" }}></div>
-      {/* <Home /> */}
-      {/* <Profile /> */}
-      {/* <Auth /> */}
       <Routes>
         <Route
           path="/"
@@ -30,6 +28,10 @@ function App() {
         <Route
           path="/profile/:id"
           element={user ? <Profile /> : <Navigate to="../auth" />}
+        />
+        <Route
+          path="/post/:id"
+          element={user ? <EditPost /> : <Navigate to="../auth" />}
         />
         <Route
           path="*"

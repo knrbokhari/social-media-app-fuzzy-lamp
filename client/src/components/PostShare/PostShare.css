@@ -29,6 +29,16 @@
   width: 100%;
 }
 
+.PostShare > div > Textarea {
+  background-color: var(--inputColor);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 17px;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
 .postOptions {
   display: flex;
   justify-content: space-around;

@@ -18,7 +18,7 @@ router.post("/", createPost);
 router.get("/:id", getPost);
 
 // Update a post
-router.put("/:id", updatePost);
+router.put("/:id", authMiddleWare, updatePost);
 
 // Delete a post
 router.delete("/:id", authMiddleWare, deletePost);

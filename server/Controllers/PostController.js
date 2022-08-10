@@ -9,7 +9,6 @@ export const createPost = async (req, res) => {
   try {
     await newPost.save();
     res.status(200).json("Post created!");
-    // res.status(200).send(newPost);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -18,10 +17,15 @@ export const createPost = async (req, res) => {
 // Get a post
 export const getPost = async (req, res) => {
   const id = req.params.id;
+  const userId = req.body._id;
 
   try {
-    const post = await PostModel.findById(id);
-    res.status(200).json(post);
+    if (id === userId) {
+      const post = await PostModel.findById(id);
+      res.status(200).json(post);
+    } else {
+      res.status(403).json("Action forbidden");
+    }
   } catch (error) {
     res.status(500).json(error);
   }
@@ -52,7 +56,7 @@ export const deletePost = async (req, res) => {
 
   try {
     const post = await PostModel.findById(id);
-    console.log(post.userId === userId);
+    // console.log(post.userId === userId);
 
     if (post.userId === userId) {
       await post.deleteOne();
@@ -87,7 +91,7 @@ export const likeAndDislikePost = async (req, res) => {
 // Get Timeline Posts
 export const getTimelinePosts = async (req, res) => {
   const userId = req.params.id;
-  console.log(req);
+  // console.log(req);
 
   try {
     const currentUserPosts = await PostModel.find({ userId: userId });

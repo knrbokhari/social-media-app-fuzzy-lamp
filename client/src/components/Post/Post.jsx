@@ -8,11 +8,13 @@ import { useSelector } from "react-redux";
 import { deletePost, likePost } from "../../api/PostsRequests";
 import { Menu, ActionIcon } from "@mantine/core";
 import { BsThreeDots } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const Post = ({ data }) => {
   const { user } = useSelector((state) => state?.authReducer?.authData);
   const [liked, setLiked] = useState(data?.likes?.includes(user._id));
   const [likes, setLikes] = useState(data?.likes?.length);
+  const navigate = useNavigate();
 
   const handleliked = () => {
     likePost(data?._id, user?._id);
@@ -23,6 +25,7 @@ const Post = ({ data }) => {
   const handleDelete = (id) => {
     deletePost(id);
   };
+  // console.log(data);
 
   return (
     <div className="Post">
@@ -35,7 +38,9 @@ const Post = ({ data }) => {
           </Menu.Target>
 
           <Menu.Dropdown>
-            <Menu.Item>Edit Post</Menu.Item>
+            <Menu.Item>
+              <p onClick={() => navigate(`/post/${data._id}`)}>Edit Post</p>
+            </Menu.Item>
             <Menu.Item>Preview</Menu.Item>
             <Menu.Item onClick={() => handleDelete(data._id)}>Delete</Menu.Item>
           </Menu.Dropdown>
