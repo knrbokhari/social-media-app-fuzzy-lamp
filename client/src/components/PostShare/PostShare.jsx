@@ -6,6 +6,7 @@ import { FaRegCalendarCheck } from "react-icons/fa";
 import { MdClear } from "react-icons/md";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../actions/AuthAction";
 
 const PostShare = () => {
   const dispatch = useDispatch();
@@ -17,8 +18,8 @@ const PostShare = () => {
   const [image, setImage] = useState(null);
   const [shareImage, setShareImage] = useState(null);
   const [urlLink, setUrlLink] = useState("");
+  const [post, setPost] = useState("");
   const imageRef = useRef();
-  const postRef = useRef();
 
   const onImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -29,72 +30,80 @@ const PostShare = () => {
       setShareImage(img);
     }
   };
+  const onPostChange = (e) => {
+    setPost(e.target.value);
+  };
 
   // const imageStorageKey = "71e150240c17a375529a9b50e8eb320e";
+
+  const data = {
+    userId: user._id,
+    desc: post,
+    image: urlLink,
+  };
+
+  console.log(post);
+  // crate new post
+  const createPost = async () => {
+    if (data.desc || data.image) {
+      dispatch({ type: "UPLOAD_START" });
+      await axios
+        .post("http://localhost:5000/posts", data)
+        .then((res) => {
+          console.log(res);
+          setImage(null);
+          setPost("");
+          dispatch({ type: "UPLOAD_SUCCESS" });
+        })
+        .catch((err) => {
+          // console.log(err);
+          if (err.response.status === 401 || err.response.status === 403) {
+            dispatch(logout());
+          }
+          dispatch({ type: "UPLOAD_FAIL" });
+        });
+    } else {
+      alert("please give us an image or test..");
+    }
+  };
 
   const handleShare = async () => {
     const formData = new FormData();
     formData.append("image", shareImage);
     const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imageStorageKey}`;
 
-    // console.log(shareImage);
-
-    const data = {
-      userId: user._id,
-      desc: postRef.current.value || "",
-      image: urlLink,
-    };
-    // console.log(data);
-
-    // crate new post
-    const createPost = async () => {
-      if (data.image !== "") {
-        dispatch({ type: "UPLOAD_START" });
-        await axios
-          .post("http://localhost:5000/posts", data)
-          .then((res) => {
-            console.log(res);
-            setImage(null);
-            postRef.current.value = "";
-            dispatch({ type: "UPLOAD_SUCCESS" });
-          })
-          .catch((err) => {
-            console.log(err);
-            dispatch({ type: "UPLOAD_FAIL" });
-          });
-      }
-    };
-
-    // image not found
-    if (!data.image) {
+    // uplode image to imgbb
+    if (shareImage) {
+      await fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          // console.log(result);
+          if (result.success) {
+            setUrlLink(result.data.url);
+            createPost();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
       createPost();
     }
-
-    // uplode image to imgbb
-    await fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        // console.log(result);
-        if (result.success) {
-          setUrlLink(result.data.url);
-          createPost();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    //
   };
 
   return (
     <div className="PostShare">
       {/* <img src={ProfileImage} alt="" /> */}
       <div>
-        <input type="text" ref={postRef} placeholder="What's happening?" />
+        <input
+          type="text"
+          // ref={postRef}
+          onChange={onPostChange}
+          placeholder="What's happening?"
+        />
         <div className="postOptions">
           <div
             className="option"
