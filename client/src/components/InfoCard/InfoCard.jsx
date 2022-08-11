@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/AuthAction";
 import { useParams } from "react-router-dom";
 import * as UserApi from "../../api/UserRequests";
+import { format } from "timeago.js";
 
 const InfoCard = () => {
   const [modalOpened, setModalOpened] = useState(false);
@@ -15,7 +16,7 @@ const InfoCard = () => {
   const profileUserId = params.id;
   const [profileUser, setProfileUser] = useState({});
 
-  const { about, livesin, worksAt, relationship } = profileUser;
+  const { about, livesin, worksAt, relationship, createdAt } = profileUser;
 
   useEffect(() => {
     const fetchProfileUser = async () => {
@@ -90,6 +91,13 @@ const InfoCard = () => {
           <b>About </b>
         </span>
         <span>{about ? about : "---"}</span>
+      </div>
+
+      <div className="info">
+        <span>
+          <b>Created At </b>
+        </span>
+        <span>{format(createdAt)}</span>
       </div>
 
       {user._id === profileUserId ? (
