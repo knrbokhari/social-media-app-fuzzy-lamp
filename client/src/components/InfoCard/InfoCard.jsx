@@ -17,8 +17,6 @@ const InfoCard = () => {
 
   const { about, livesin, worksAt, relationship } = profileUser;
 
-  console.log(modalOpened);
-
   useEffect(() => {
     const fetchProfileUser = async () => {
       if (profileUserId === user._id) {

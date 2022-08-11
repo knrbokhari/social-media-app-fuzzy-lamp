@@ -1,13 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ProfileCard.css";
 import cover from "../../img/cover.jpg";
 import profile from "../../img/profileImg.jpg";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const ProfileCard = ({ location }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
-  let { posts } = useSelector((state) => state.PostReducer);
+  // let { posts } = useSelector((state) => state.PostReducer);
+  let [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      axios
+        .get(`/posts/${user._id}/timeline`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("profile")).token
+            }`,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setPosts(res.data);
+            // setDeletedPost(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    fetchPosts();
+  }, [posts, user._id]);
 
   const {
     firstname,
@@ -48,7 +74,7 @@ const ProfileCard = ({ location }) => {
               <div className="vl"></div>
               <div className="follow">
                 <span>
-                  {posts.filter((post) => post.userId === user._id).length}
+                  {posts?.filter((post) => post?.userId === user?._id).length}
                 </span>
                 <span>Posts</span>
               </div>

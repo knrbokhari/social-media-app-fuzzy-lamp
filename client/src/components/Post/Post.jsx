@@ -9,12 +9,40 @@ import { deletePost, likePost } from "../../api/PostsRequests";
 import { Menu, ActionIcon } from "@mantine/core";
 import { BsThreeDots } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
+import { format } from "timeago.js";
 
 const Post = ({ data }) => {
   const { user } = useSelector((state) => state?.authReducer?.authData);
   const [liked, setLiked] = useState(data?.likes?.includes(user._id));
   const [likes, setLikes] = useState(data?.likes?.length);
   const navigate = useNavigate();
+
+  const [postUser, setUserPost] = useState([]);
+  const { firstname, lastname, profilePicture } = postUser;
+
+  useEffect(() => {
+    const fetchPostUser = async () => {
+      await axios
+        .get(`http://localhost:5000/user/${data.userId}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("profile")).token
+            }`,
+          },
+        })
+        .then((res) => {
+          // console.log(res);
+          setUserPost(res.data);
+        })
+        .catch((err) => {
+          // console.log(err);
+        });
+    };
+    fetchPostUser();
+  }, [data]);
 
   const handleliked = () => {
     likePost(data?._id, user?._id);
@@ -25,7 +53,6 @@ const Post = ({ data }) => {
   const handleDelete = (id) => {
     deletePost(id);
   };
-  // console.log(data);
 
   return (
     <div className="Post">
@@ -46,10 +73,31 @@ const Post = ({ data }) => {
           </Menu.Dropdown>
         </Menu>
       </div>
+
       <div className="detail">
-        <span>
-          <b>username</b>
-        </span>
+        <div style={{ display: "flex" }}>
+          <img
+            src={
+              profilePicture
+                ? profilePicture
+                : "https://i.ibb.co/q12WqWn/s3.jpg"
+            }
+            alt=""
+            style={{
+              width: "40px",
+              height: "40px",
+              marginRight: "15px",
+              borderRadius: "50%",
+            }}
+          />
+          <div>
+            <span>
+              <b>{firstname + " " + lastname}</b>
+            </span>
+            <br />
+            <span>{format(data.createdAt)}</span>
+          </div>
+        </div>
         <br />
         <span> {data?.desc}</span>
       </div>

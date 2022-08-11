@@ -121,12 +121,7 @@ const PostEdit = ({ id }) => {
           rows="8"
         />
         {!image && (
-          <input
-            type="file"
-            //   onClick={() => imageRef.current.click()}
-            ref={imageRef}
-            onChange={onImageChange}
-          />
+          <input type="file" ref={imageRef} onChange={onImageChange} />
         )}
         {image && (
           <div className="previewImage">
@@ -143,7 +138,7 @@ const PostEdit = ({ id }) => {
           disabled={loading}
           style={{ fontSize: "20px" }}
         >
-          {loading ? "Uploading" : "Upload"}
+          {loading ? "Updating" : "Update"}
         </button>
       </div>
     </div>

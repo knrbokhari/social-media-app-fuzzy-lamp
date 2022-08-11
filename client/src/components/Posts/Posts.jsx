@@ -14,7 +14,7 @@ const Posts = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      axios
+      await axios
         .get(`/posts/${user._id}/timeline`, {
           method: "GET",
           headers: {
@@ -36,7 +36,7 @@ const Posts = () => {
         });
     };
     fetchPosts();
-  }, [user._id, posts]);
+  }, [posts, user._id, dispatch]);
 
   if (!posts) return "No Posts";
   if (params.id) posts = posts.filter((post) => post.userId === params.id);
