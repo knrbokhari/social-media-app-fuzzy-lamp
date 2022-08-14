@@ -16,12 +16,15 @@ const InfoCard = () => {
   const profileUserId = params.id;
   const [profileUser, setProfileUser] = useState({});
 
-  const { about, livesin, worksAt, relationship, createdAt } = profileUser;
+  const { about, livesIn, worksAt, relationship, createdAt, country } =
+    profileUser;
 
   useEffect(() => {
     const fetchProfileUser = async () => {
       if (profileUserId === user._id) {
-        setProfileUser(user);
+        // setProfileUser(user);
+        const profileUser = await UserApi.getUser(profileUserId);
+        setProfileUser(profileUser.data);
       } else {
         console.log("fetching");
         const profileUser = await UserApi.getUser(profileUserId);
@@ -31,6 +34,8 @@ const InfoCard = () => {
     };
     fetchProfileUser();
   }, [user, profileUserId]);
+
+  // console.log(profileUser);
 
   const handleLogOut = () => {
     dispatch(logout());
@@ -69,14 +74,14 @@ const InfoCard = () => {
         <span>
           <b>Lives in </b>
         </span>
-        <span>{livesin ? livesin : "---"}</span>
+        <span>{livesIn ? livesIn : "---"}</span>
       </div>
 
       <div className="info">
         <span>
           <b>Country </b>
         </span>
-        <span>{livesin ? livesin : "---"}</span>
+        <span>{country ? country : "---"}</span>
       </div>
 
       <div className="info">

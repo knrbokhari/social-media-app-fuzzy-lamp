@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, useMantineTheme } from "@mantine/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { updateUser } from "../../actions/UserAction";
 
@@ -11,17 +11,20 @@ const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
   const dispatch = useDispatch();
   const param = useParams();
 
-  const { user } = useSelector((state) => state.authReducer.authData);
+  // const { user } = useSelector((state) => state.authReducer.authData);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   // form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(updateUser(param.id, formData));
+    let UserData = formData;
+    dispatch(updateUser(param.id, UserData));
+
     setModalOpened(false);
   };
+  console.log(formData);
 
   return (
     <Modal
@@ -35,9 +38,10 @@ const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
       size="55%"
       opened={modalOpened}
       onClose={() => setModalOpened(false)}
+      title="Your Info"
     >
       <form className="infoForm" onSubmit={handleSubmit}>
-        <h3>Your Info</h3>
+        {/* <h3>Your Info</h3> */}
         <div>
           <input
             value={formData.firstname}
@@ -98,6 +102,19 @@ const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
           />
         </div>
 
+        <div>
+          <textarea
+            value={formData.about}
+            onChange={handleChange}
+            type="text"
+            className="infoInput"
+            placeholder="About"
+            name="about"
+            rows="100"
+            style={{ height: "100px" }}
+          ></textarea>
+        </div>
+
         {/* <div>
           Profile image
           <input type="file" name="profileImage" onChange={onImageChange} />
@@ -108,7 +125,11 @@ const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
           <input type="file" name="coverImage" onChange={onImageChange} />
         </div> */}
 
-        <button className="button infoButton" type="submit">
+        <button
+          className="button infoButton"
+          type="submit"
+          style={{ margin: "50px auto 0" }}
+        >
           Update
         </button>
       </form>
