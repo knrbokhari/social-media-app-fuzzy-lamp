@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import "./ProfileCard.css";
-import cover from "../../img/cover.jpg";
-import profile from "../../img/profileImg.jpg";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "./ProfileCard.css";
+import { MdOutlineAddAPhoto } from "react-icons/md";
+import CoverModul from "../CoverModul/CoverModul";
+import ProfileModal from "../ProfileModul/ProfileModul";
 
 const ProfileCard = ({ location }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
   // let { posts } = useSelector((state) => state.PostReducer);
   let [posts, setPosts] = useState([]);
+  const [covermodalOpened, setCoverModalOpened] = useState(false);
+  const [profileModalOpened, setProfileModalOpened] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -48,8 +51,38 @@ const ProfileCard = ({ location }) => {
   return (
     <div className={`ProfileCard`}>
       <div className="ProfileInames">
-        <img src={coverPicture ? coverPicture : cover} alt="" />
-        <img src={profilePicture ? profilePicture : profile} alt="" />
+        <img
+          src={
+            coverPicture
+              ? coverPicture
+              : "https://i.ibb.co/mFBLC5L/golden-stars-glitter-yellow-paper-background-festive-holiday-bright-backdrop-155694236.jpg"
+          }
+          alt=""
+          className="coverPicture"
+        />
+        {location && (
+          <MdOutlineAddAPhoto
+            className="addCoverIcon"
+            onClick={() => setCoverModalOpened(true)}
+          />
+        )}
+        <CoverModul
+          covermodalOpened={covermodalOpened}
+          setCoverModalOpened={setCoverModalOpened}
+        />
+
+        <img
+          src={
+            profilePicture ? profilePicture : "https://i.ibb.co/q12WqWn/s3.jpg"
+          }
+          alt=""
+          className="profilePicture"
+        />
+        {location && <MdOutlineAddAPhoto className="addProfileIcon" />}
+        <ProfileModal
+          profileModalOpened={profileModalOpened}
+          setProfileModalOpened={setProfileModalOpened}
+        />
       </div>
       <div className="ProfileName">
         <span className="Name">{firstname + " " + lastname}</span>

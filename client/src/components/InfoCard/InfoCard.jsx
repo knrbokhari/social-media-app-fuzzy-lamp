@@ -29,7 +29,7 @@ const InfoCard = () => {
         console.log("fetching");
         const profileUser = await UserApi.getUser(profileUserId);
         setProfileUser(profileUser);
-        console.log(profileUser);
+        // console.log(profileUser);
       }
     };
     fetchProfileUser();

@@ -24,7 +24,7 @@ const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
 
     setModalOpened(false);
   };
-  console.log(formData);
+  // console.log(formData);
 
   return (
     <Modal

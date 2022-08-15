@@ -14,16 +14,45 @@
   align-items: center;
   justify-content: center;
 }
-.ProfileInames > img:nth-of-type(1) {
+
+.coverPicture {
   width: 100%;
 }
-.ProfileInames > img:nth-of-type(2) {
+.addCoverIcon {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  font-size: 40px;
+  padding: 5px;
+  color: rgb(249 95 53);
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+}
+
+.addCoverIcon:hover {
+  cursor: pointer;
+}
+
+.profilePicture {
   width: 6rem;
   border-radius: 50%;
   position: absolute;
   bottom: -3rem;
   box-shadow: var(--profileShadow);
 }
+.addProfileIcon {
+  position: absolute;
+  bottom: -3.65rem;
+  font-size: 28px;
+  color: rgb(249 95 53);
+  background: black;
+  padding: 4px;
+  border-radius: 50%;
+}
+.addProfileIcon:hover {
+  cursor: pointer;
+}
+
 .ProfileName {
   display: flex;
   flex-direction: column;
