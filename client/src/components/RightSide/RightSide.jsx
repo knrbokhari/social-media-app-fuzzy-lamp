@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "./RightSide.css";
 import { AiFillHome, AiOutlineComment } from "react-icons/ai";
-import { MdOutlineNotifications, MdSettings } from "react-icons/md";
+import { FaUserFriends } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import TrendCard from "../TrendCard/TrendCard";
 import ShareModal from "../ShareModal/ShareModal";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const RightSide = () => {
+const RightSide = ({ location }) => {
   const user = useSelector((state) => state.authReducer.authData.user);
 
   const [modalOpened, setModalOpened] = useState(false);
@@ -24,10 +24,10 @@ const RightSide = () => {
             }}
           />
         </Link>
-        <Link to="">
-          <MdSettings
+        <Link to="/follower">
+          <FaUserFriends
             style={{
-              fontSize: "25px",
+              fontSize: "30px",
               color: "#f95f35",
               cursor: "pointer",
             }}
@@ -36,7 +36,7 @@ const RightSide = () => {
         <Link to="">
           <AiOutlineComment
             style={{
-              fontSize: "25px",
+              fontSize: "30px",
               color: "#f95f35",
               cursor: "pointer",
             }}
@@ -45,7 +45,7 @@ const RightSide = () => {
         <Link to={`/profile/${user._id}`}>
           <CgProfile
             style={{
-              fontSize: "25px",
+              fontSize: "30px",
               color: "#f95f35",
               cursor: "pointer",
             }}

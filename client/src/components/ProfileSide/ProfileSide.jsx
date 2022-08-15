@@ -4,13 +4,13 @@ import LogoSearch from "../LogoSearch/LogoSearch";
 import ProfileCard from "../ProfileCard/ProfileCard";
 import "./ProfileSide.css";
 
-const ProfileSide = () => {
+const ProfileSide = ({ location }) => {
   return (
     <div className="profileSide">
       <LogoSearch />
       <div className="MobileView">
         <ProfileCard />
-        <FollowersCard />
+        {!location && <FollowersCard />}
       </div>
     </div>
   );

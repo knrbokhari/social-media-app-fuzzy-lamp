@@ -13,6 +13,10 @@
   --location: #ef5757;
   --shedule: #e1ae4a;
 }
+body {
+  max-width: 1400px;
+  margin: 0 auto;
+}
 .App {
   overflow: hidden;
   color: var(--black);

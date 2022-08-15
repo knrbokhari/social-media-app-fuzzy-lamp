@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
-import "./App.css";
 import Auth from "./pages/Auth/Auth";
 import EditPost from "./pages/EditPost/EditPost";
+import Follower from "./pages/Follower/Follower";
 import Home from "./pages/home/Home";
 import Profile from "./pages/Profile/Profile";
+import "./App.css";
 
 function App() {
   const user = useSelector((state) => state.authReducer.authData);
@@ -32,6 +33,10 @@ function App() {
         <Route
           path="/post/:id"
           element={user ? <EditPost /> : <Navigate to="../auth" />}
+        />
+        <Route
+          path="/follower"
+          element={user ? <Follower /> : <Navigate to="../auth" />}
         />
         <Route
           path="*"

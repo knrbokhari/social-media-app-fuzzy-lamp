@@ -3,6 +3,7 @@
   display: grid;
   grid-template-columns: 18rem auto 20rem;
   gap: 1rem;
+  height: 97vh;
 }
 
 .Profile-center {
@@ -15,5 +16,6 @@
   .Profile {
     display: block;
     position: relative;
+    height: 99vh;
   }
 }

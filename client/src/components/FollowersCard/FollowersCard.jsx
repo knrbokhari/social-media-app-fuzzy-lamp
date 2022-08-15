@@ -20,8 +20,8 @@ const FollowersCard = ({ location }) => {
   }, []);
 
   return (
-    <div className={`FollowersCard ${location ? "MobileView" : ""}`}>
-      <h3>People you may know</h3>
+    <div className={`FollowersCard ${location === "h89" ? "h89" : ""}`}>
+      <h3 style={{ marginTop: "1rem" }}>People you may know</h3>
       {persons?.map((person) => {
         if (person._id !== user._id)
           return <User person={person} key={person._id} />;
