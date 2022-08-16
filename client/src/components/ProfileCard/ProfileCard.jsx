@@ -6,13 +6,11 @@ import "./ProfileCard.css";
 import { MdOutlineAddAPhoto } from "react-icons/md";
 import CoverModul from "../CoverModul/CoverModul";
 import ProfileModal from "../ProfileModul/ProfileModul";
-import { toast } from "react-toastify";
 import * as UserApi from "../../api/UserRequests";
 
 const ProfileCard = ({ location }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
-  // let { posts } = useSelector((state) => state.PostReducer);
-  let [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [covermodalOpened, setCoverModalOpened] = useState(false);
   const [profileModalOpened, setProfileModalOpened] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
@@ -32,7 +30,6 @@ const ProfileCard = ({ location }) => {
         .then((res) => {
           if (res.status === 200) {
             setPosts(res.data);
-            // setDeletedPost(false);
           }
         })
         .catch((err) => {
@@ -40,7 +37,7 @@ const ProfileCard = ({ location }) => {
         });
     };
     fetchPosts();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -52,7 +49,7 @@ const ProfileCard = ({ location }) => {
       }
     };
     fetchUser();
-  }, [id]);
+  }, [id, user]);
 
   const {
     firstname,
@@ -63,8 +60,7 @@ const ProfileCard = ({ location }) => {
     followers,
     following,
   } = currentUser;
-
-  console.log(currentUser);
+  console.log(id === user._id);
 
   return (
     <div className={`ProfileCard`}>
@@ -78,7 +74,7 @@ const ProfileCard = ({ location }) => {
           alt=""
           className="coverPicture"
         />
-        {location && (
+        {id === user._id && location && (
           <MdOutlineAddAPhoto
             className="addCoverIcon"
             onClick={() => setCoverModalOpened(true)}
@@ -96,7 +92,7 @@ const ProfileCard = ({ location }) => {
           alt=""
           className="profilePicture"
         />
-        {location && (
+        {id === user._id && location && (
           <MdOutlineAddAPhoto
             className="addProfileIcon"
             onClick={() => setProfileModalOpened(true)}
@@ -130,7 +126,7 @@ const ProfileCard = ({ location }) => {
               <div className="vl"></div>
               <div className="follow">
                 <span>
-                  {posts?.filter((post) => post?.userId === user?._id).length}
+                  {posts?.filter((post) => post?.userId === id).length}
                 </span>
                 <span>Posts</span>
               </div>

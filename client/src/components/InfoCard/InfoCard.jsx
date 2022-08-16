@@ -22,20 +22,15 @@ const InfoCard = () => {
   useEffect(() => {
     const fetchProfileUser = async () => {
       if (profileUserId === user._id) {
-        // setProfileUser(user);
+        setProfileUser(user);
+      } else {
+        // console.log("fetching");
         const profileUser = await UserApi.getUser(profileUserId);
         setProfileUser(profileUser.data);
-      } else {
-        console.log("fetching");
-        const profileUser = await UserApi.getUser(profileUserId);
-        setProfileUser(profileUser);
-        // console.log(profileUser);
       }
     };
     fetchProfileUser();
   }, [user, profileUserId]);
-
-  // console.log(profileUser);
 
   const handleLogOut = () => {
     dispatch(logout());
