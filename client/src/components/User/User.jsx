@@ -17,7 +17,7 @@ const User = ({ person }) => {
     setFollowing((prev) => !prev);
   };
   return (
-    <div className="follower">
+    <div className="follower" style={{ marginTop: "5px" }}>
       <div>
         <img
           src={

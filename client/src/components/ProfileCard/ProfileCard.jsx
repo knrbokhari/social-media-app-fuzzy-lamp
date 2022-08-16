@@ -41,9 +41,13 @@ const ProfileCard = ({ location }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (id !== user._id) {
-        const profileUser = await UserApi.getUser(id);
-        setCurrentUser(profileUser.data);
+      if (id) {
+        if (id === user._id) {
+          setCurrentUser(user);
+        } else {
+          const profileUser = await UserApi.getUser(id);
+          setCurrentUser(profileUser.data);
+        }
       } else {
         setCurrentUser(user);
       }
@@ -60,7 +64,6 @@ const ProfileCard = ({ location }) => {
     followers,
     following,
   } = currentUser;
-  console.log(id === user._id);
 
   return (
     <div className={`ProfileCard`}>

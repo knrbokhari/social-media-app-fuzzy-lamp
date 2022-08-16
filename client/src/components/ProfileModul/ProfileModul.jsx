@@ -22,7 +22,6 @@ const ProfileModal = ({ profileModalOpened, setProfileModalOpened }) => {
   // form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user._id === param.id);
 
     const formData = new FormData();
     formData.append("image", coverImage);

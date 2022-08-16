@@ -18,14 +18,22 @@ const FollowersCard = ({ location }) => {
     };
     fetchPersons();
   }, []);
+  console.log(location !== "h89");
 
   return (
     <div className={`FollowersCard ${location === "h89" ? "h89" : ""}`}>
       <h3 style={{ marginTop: "1rem" }}>People you may know</h3>
-      {persons?.map((person) => {
-        if (person._id !== user._id)
-          return <User person={person} key={person._id} />;
-      })}
+      {location !== "h89" &&
+        persons.slice(0, 5)?.map((person) => {
+          if (person._id !== user._id)
+            return <User person={person} key={person._id} />;
+        })}
+
+      {location === "h89" &&
+        persons?.map((person) => {
+          if (person._id !== user._id)
+            return <User person={person} key={person._id} />;
+        })}
 
       {!location ? (
         <span onClick={() => setModalOpened(true)}>Show more</span>

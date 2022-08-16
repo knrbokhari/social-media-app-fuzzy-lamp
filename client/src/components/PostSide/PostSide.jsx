@@ -10,14 +10,14 @@ import "./PostSide.css";
 const PostSide = ({ location }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
   const { id } = useParams();
-  console.log(id === user._id);
+
   return (
     <div className="PostSide">
       {location && <ProfileCard location={"ProfilePage"} />}
       <div className="ProfileInfoCard">
         {location && <InfoCard location={true} />}
       </div>
-      {id === user._id && <PostShare />}
+      {id ? id === user._id && <PostShare /> : <PostShare />}
       <Posts />
     </div>
   );

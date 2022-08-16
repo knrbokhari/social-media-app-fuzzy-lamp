@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, useMantineTheme } from "@mantine/core";
-import FollowersCard from "../FollowersCard/FollowersCard";
+import { getAllUser } from "../../api/UserRequests";
+import { useSelector } from "react-redux";
+import User from "../User/User";
 
 const FollowersModal = ({ modalOpened, setModalOpened }) => {
   const theme = useMantineTheme();
+  const [persons, setPersons] = useState([]);
+  const { user } = useSelector((state) => state.authReducer.authData);
+
+  useEffect(() => {
+    const fetchPersons = async () => {
+      const { data } = await getAllUser();
+      setPersons(data);
+    };
+    fetchPersons();
+  }, []);
+
   return (
     <Modal
       overlayColor={
@@ -15,9 +28,14 @@ const FollowersModal = ({ modalOpened, setModalOpened }) => {
       overlayBlur={3}
       size="55%"
       opened={modalOpened}
+      title="People you may know"
       onClose={() => setModalOpened(false)}
     >
-      <FollowersCard location="modal" />
+      {persons?.map((person) => {
+        if (person._id !== user._id) {
+          return <User person={person} key={person._id} />;
+        }
+      })}
     </Modal>
   );
 };

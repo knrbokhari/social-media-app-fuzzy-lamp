@@ -33,8 +33,6 @@ const PostShare = () => {
     setPost(e.target.value);
   };
 
-  // const imageStorageKey = "71e150240c17a375529a9b50e8eb320e";
-
   const data = {
     userId: user._id,
     desc: post,

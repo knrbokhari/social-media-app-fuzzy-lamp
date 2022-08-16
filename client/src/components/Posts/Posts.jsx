@@ -36,16 +36,20 @@ const Posts = () => {
         });
     };
     fetchPosts();
-  }, [posts, user._id, dispatch]);
+  }, [dispatch, user._id]);
 
-  if (!posts) return "No Posts";
+  // if (!posts) return "No Posts";
   if (params.id) posts = posts.filter((post) => post.userId === params.id);
 
   return (
     <div className="Posts">
-      {posts?.map((post, id) => {
-        return <Post data={post} key={id} />;
-      })}
+      {posts.length !== 0 ? (
+        posts?.map((post, id) => {
+          return <Post data={post} key={id} />;
+        })
+      ) : (
+        <p style={{ textAlign: "center" }}>No Posts</p>
+      )}
     </div>
   );
 };
