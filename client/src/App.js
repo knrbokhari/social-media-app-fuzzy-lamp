@@ -6,6 +6,8 @@ import Follower from "./pages/Follower/Follower";
 import Home from "./pages/home/Home";
 import Profile from "./pages/Profile/Profile";
 import "./App.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const user = useSelector((state) => state.authReducer.authData);
@@ -47,6 +49,7 @@ function App() {
           }
         />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

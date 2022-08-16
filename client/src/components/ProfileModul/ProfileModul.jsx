@@ -3,6 +3,7 @@ import { Modal, useMantineTheme } from "@mantine/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { updateUser } from "../../actions/UserAction";
+import { toast } from "react-toastify";
 
 const ProfileModal = ({ profileModalOpened, setProfileModalOpened }) => {
   const theme = useMantineTheme();
@@ -35,17 +36,15 @@ const ProfileModal = ({ profileModalOpened, setProfileModalOpened }) => {
       })
         .then((res) => res.json())
         .then((result) => {
-          //   console.log(result);
           if (result.success) {
-            const data = { coverPicture: result.data.url };
+            const data = { profilePicture: result.data.url };
             dispatch(updateUser(param.id, data));
-            // console.log(user);
-
+            toast.success("UPLOAD SUCCESS");
             setProfileModalOpened(false);
           }
         })
         .catch((error) => {
-          console.log(error);
+          toast.error(error.message);
         });
     }
   };

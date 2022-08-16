@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { MdClear } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const PostEdit = ({ id }) => {
   const dispatch = useDispatch();
@@ -32,7 +33,9 @@ const PostEdit = ({ id }) => {
         .then((res) => {
           setPost(res.data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          toast.error(err.message);
+        });
     };
     fetchPost();
   }, [id]);
@@ -52,8 +55,6 @@ const PostEdit = ({ id }) => {
     setUpost(e.target.value);
   };
 
-  //   console.log(Upost);
-
   const data = {
     userId: user._id,
     desc: Upost,
@@ -67,17 +68,18 @@ const PostEdit = ({ id }) => {
       await axios
         .put(`http://localhost:5000/posts/${id}`, data)
         .then((res) => {
-          console.log(res);
           setImage(null);
           postRef.current.value = "";
           navigate("/");
+          toast.success("UPLOAD SUCCESS");
           dispatch({ type: "UPLOAD_SUCCESS" });
         })
         .catch((err) => {
           dispatch({ type: "UPLOAD_FAIL" });
+          toast.error("UPLOAD FAIL");
         });
     } else {
-      alert("please give us an image or test..");
+      toast("please give us an image or text..");
     }
   };
 
@@ -94,14 +96,13 @@ const PostEdit = ({ id }) => {
       })
         .then((res) => res.json())
         .then((result) => {
-          // console.log(result);
           if (result.success) {
             setUrlLink(result.data.url);
             createPost();
           }
         })
         .catch((error) => {
-          console.log(error);
+          // toast.error(error.message);
         });
     } else {
       createPost();

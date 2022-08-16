@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import "./ProfileCard.css";
 import { MdOutlineAddAPhoto } from "react-icons/md";
 import CoverModul from "../CoverModul/CoverModul";
 import ProfileModal from "../ProfileModul/ProfileModul";
+import { toast } from "react-toastify";
+import * as UserApi from "../../api/UserRequests";
 
 const ProfileCard = ({ location }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
@@ -13,11 +15,13 @@ const ProfileCard = ({ location }) => {
   let [posts, setPosts] = useState([]);
   const [covermodalOpened, setCoverModalOpened] = useState(false);
   const [profileModalOpened, setProfileModalOpened] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchPosts = async () => {
       axios
-        .get(`/posts/${user._id}/timeline`, {
+        .get(`/posts/${id}/timeline`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${
@@ -32,11 +36,23 @@ const ProfileCard = ({ location }) => {
           }
         })
         .catch((err) => {
-          console.log(err);
+          // toast(err.message);
         });
     };
     fetchPosts();
-  }, [posts, user._id]);
+  }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (id !== user._id) {
+        const profileUser = await UserApi.getUser(id);
+        setCurrentUser(profileUser.data);
+      } else {
+        setCurrentUser(user);
+      }
+    };
+    fetchUser();
+  }, [id]);
 
   const {
     firstname,
@@ -46,7 +62,9 @@ const ProfileCard = ({ location }) => {
     worksAt,
     followers,
     following,
-  } = user;
+  } = currentUser;
+
+  console.log(currentUser);
 
   return (
     <div className={`ProfileCard`}>
@@ -78,7 +96,12 @@ const ProfileCard = ({ location }) => {
           alt=""
           className="profilePicture"
         />
-        {location && <MdOutlineAddAPhoto className="addProfileIcon" />}
+        {location && (
+          <MdOutlineAddAPhoto
+            className="addProfileIcon"
+            onClick={() => setProfileModalOpened(true)}
+          />
+        )}
         <ProfileModal
           profileModalOpened={profileModalOpened}
           setProfileModalOpened={setProfileModalOpened}
@@ -93,12 +116,12 @@ const ProfileCard = ({ location }) => {
         <hr />
         <div>
           <div className="follow">
-            <span className="FollowingsNumber"> {following.length}</span>
+            <span className="FollowingsNumber"> {following?.length}</span>
             <span>Followings</span>
           </div>
           <div className="vl"></div>
           <div className="follow">
-            <span className="FollowersNumber">{followers.length}</span>
+            <span className="FollowersNumber">{followers?.length}</span>
             <span>Followers</span>
           </div>
 

@@ -6,13 +6,12 @@ import { MdClear } from "react-icons/md";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/AuthAction";
+import { toast } from "react-toastify";
 
 const PostShare = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authReducer.authData);
   const loading = useSelector((state) => state.PostReducer.uploading);
-
-  // console.log(loading);
 
   const [image, setImage] = useState(null);
   const [shareImage, setShareImage] = useState(null);
@@ -49,20 +48,21 @@ const PostShare = () => {
       await axios
         .post("http://localhost:5000/posts", data)
         .then((res) => {
-          console.log(res);
           setImage(null);
           postRef.current.value = "";
           dispatch({ type: "UPLOAD_SUCCESS" });
+          toast.success("UPLOAD SUCCESS");
         })
         .catch((err) => {
-          // console.log(err);
+          toast.error(err.message);
           if (err.response.status === 401 || err.response.status === 403) {
             dispatch(logout());
           }
           dispatch({ type: "UPLOAD_FAIL" });
+          toast.error("UPLOAD FAIL");
         });
     } else {
-      alert("please give us an image or test..");
+      toast("please give us an image or test..");
     }
   };
 
@@ -79,14 +79,13 @@ const PostShare = () => {
       })
         .then((res) => res.json())
         .then((result) => {
-          // console.log(result);
           if (result.success) {
             setUrlLink(result.data.url);
             createPost();
           }
         })
         .catch((error) => {
-          console.log(error);
+          toast.error(error.message);
         });
     } else {
       createPost();

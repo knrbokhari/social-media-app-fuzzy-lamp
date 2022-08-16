@@ -34,11 +34,10 @@ const Post = ({ data }) => {
           },
         })
         .then((res) => {
-          // console.log(res);
           setUserPost(res.data);
         })
         .catch((err) => {
-          // console.log(err);
+          // toast(err.message);
         });
     };
     fetchPostUser();

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { followUser, unfollowUser } from "../../actions/UserAction";
+import { Link } from "react-router-dom";
 
 const User = ({ person }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
@@ -28,7 +29,11 @@ const User = ({ person }) => {
           className="followerImage"
         />
         <div className="name">
-          <span>{person.firstname + " " + person.lastname}</span>
+          <span>
+            <Link to={`/profile/${person._id}`}>
+              {person.firstname + " " + person.lastname}
+            </Link>
+          </span>
           <span>@{person.username}</span>
         </div>
       </div>

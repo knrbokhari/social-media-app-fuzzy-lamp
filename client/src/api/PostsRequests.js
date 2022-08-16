@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const API = axios.create({ baseURL: "http://localhost:5000" });
 
@@ -18,7 +19,7 @@ export const likePost = (id, userId) =>
 export const deletePost = (id) =>
   API.delete(`posts/${id}`).then((res) => {
     if (res.status === 200) {
-      alert(res.data);
+      toast(res.data);
     }
   });
 export const updatePost = (id) => API.put(`posts/${id}`);

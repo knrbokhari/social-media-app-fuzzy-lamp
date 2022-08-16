@@ -3,6 +3,7 @@ import { Modal, useMantineTheme } from "@mantine/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { updateUser } from "../../actions/UserAction";
+import { toast } from "react-toastify";
 
 const ProfileModal = ({ covermodalOpened, setCoverModalOpened }) => {
   const theme = useMantineTheme();
@@ -21,7 +22,7 @@ const ProfileModal = ({ covermodalOpened, setCoverModalOpened }) => {
   // form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user._id === param.id);
+    toast(user._id === param.id);
 
     const formData = new FormData();
     formData.append("image", coverImage);
@@ -35,17 +36,17 @@ const ProfileModal = ({ covermodalOpened, setCoverModalOpened }) => {
       })
         .then((res) => res.json())
         .then((result) => {
-          //   console.log(result);
           if (result.success) {
             const data = { coverPicture: result.data.url };
             dispatch(updateUser(param.id, data));
             // console.log(user);
+            toast.success("Cover image updated");
 
             setCoverModalOpened(false);
           }
         })
         .catch((error) => {
-          console.log(error);
+          toast(error.message);
         });
     }
   };

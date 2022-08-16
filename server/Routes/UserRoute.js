@@ -15,7 +15,7 @@ const router = express.Router();
 router.get("/", getAllUsers);
 
 // get user from db
-router.get("/:id", authMiddleWare, getUser);
+router.get("/:id", getUser);
 
 // update a user
 router.put("/:id", authMiddleWare, updateUser);
