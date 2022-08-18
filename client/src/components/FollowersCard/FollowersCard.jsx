@@ -18,7 +18,6 @@ const FollowersCard = ({ location }) => {
     };
     fetchPersons();
   }, []);
-  console.log(location !== "h89");
 
   return (
     <div className={`FollowersCard ${location === "h89" ? "h89" : ""}`}>

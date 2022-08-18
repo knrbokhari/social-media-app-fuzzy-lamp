@@ -9,7 +9,8 @@ const ProfileSide = ({ location }) => {
     <div className="profileSide">
       <LogoSearch />
       <div className="MobileView">
-        <ProfileCard />
+        {location !== "editPast" && <ProfileCard />}
+        {location === "editPast" && <FollowersCard />}
         {!location && <FollowersCard />}
       </div>
     </div>

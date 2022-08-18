@@ -52,7 +52,6 @@ const Auth = () => {
 
   return (
     <div className="Auth">
-      {/* left side */}
       <div className="a-left">
         <img src={Logo} alt="" />
         <div className="Webname">

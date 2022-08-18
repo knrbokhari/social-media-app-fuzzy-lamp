@@ -4,14 +4,14 @@ import { FiImage, FiPlayCircle } from "react-icons/fi";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { MdClear } from "react-icons/md";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../actions/AuthAction";
+import { useSelector } from "react-redux";
+// import { logout } from "../../actions/AuthAction";
 import { toast } from "react-toastify";
 
 const PostShare = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authReducer.authData);
-  const loading = useSelector((state) => state.PostReducer.uploading);
+  // const loading = useSelector((state) => state.PostReducer.uploading);
 
   const [image, setImage] = useState(null);
   const [shareImage, setShareImage] = useState(null);
@@ -33,37 +33,6 @@ const PostShare = () => {
     setPost(e.target.value);
   };
 
-  const data = {
-    userId: user._id,
-    desc: post,
-    image: urlLink,
-  };
-
-  // crate new post
-  const createPost = async () => {
-    if (data.desc || data.image) {
-      dispatch({ type: "UPLOAD_START" });
-      await axios
-        .post("http://localhost:5000/posts", data)
-        .then((res) => {
-          setImage(null);
-          postRef.current.value = "";
-          dispatch({ type: "UPLOAD_SUCCESS" });
-          toast.success("UPLOAD SUCCESS");
-        })
-        .catch((err) => {
-          toast.error(err.message);
-          if (err.response.status === 401 || err.response.status === 403) {
-            dispatch(logout());
-          }
-          dispatch({ type: "UPLOAD_FAIL" });
-          toast.error("UPLOAD FAIL");
-        });
-    } else {
-      toast("please give us an image or test..");
-    }
-  };
-
   const handleShare = async () => {
     const formData = new FormData();
     formData.append("image", shareImage);
@@ -83,10 +52,43 @@ const PostShare = () => {
           }
         })
         .catch((error) => {
-          toast.error(error.message);
+          // toast.error(error.message);
         });
     } else {
       createPost();
+    }
+  };
+
+  // post data
+  const data = {
+    userId: user._id,
+    desc: post,
+    image: urlLink,
+  };
+
+  // crate new post
+  const createPost = async () => {
+    if (data.desc || data.image) {
+      // dispatch({ type: "UPLOAD_START" });
+      await axios
+        .post("http://localhost:5000/posts", data)
+        .then((res) => {
+          setImage(null);
+          postRef.current.value = "";
+          // dispatch({ type: "UPLOAD_SUCCESS" });
+          toast.success("UPLOAD SUCCESS");
+        })
+        .catch((err) => {
+          toast.error(err.message);
+          console.log(err);
+          // if (err.response.status === 401 || err.response.status === 403) {
+          //   dispatch(logout());
+          // }
+          // dispatch({ type: "UPLOAD_FAIL" });
+          toast.error("UPLOAD FAIL");
+        });
+    } else {
+      toast("Please give us an image or text..");
     }
   };
 
@@ -157,9 +159,10 @@ const PostShare = () => {
           <button
             className="button ps-button"
             onClick={handleShare}
-            disabled={loading}
+            // disabled={loading}
           >
-            {loading ? "uploading" : "Share"}
+            Share
+            {/* {loading ? "uploading" : "Share"} */}
           </button>
           <div style={{ display: "none" }}>
             <input

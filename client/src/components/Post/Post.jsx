@@ -56,21 +56,27 @@ const Post = ({ data }) => {
   return (
     <div className="Post">
       <div className="deleteButton">
-        <Menu withinPortal position="bottom-end" shadow="sm">
-          <Menu.Target>
-            <ActionIcon>
-              <BsThreeDots />
-            </ActionIcon>
-          </Menu.Target>
+        {user._id === data.userId ? (
+          <Menu withinPortal position="bottom-end" shadow="sm">
+            <Menu.Target>
+              <ActionIcon>
+                <BsThreeDots />
+              </ActionIcon>
+            </Menu.Target>
 
-          <Menu.Dropdown>
-            <Menu.Item>
-              <p onClick={() => navigate(`/post/${data._id}`)}>Edit Post</p>
-            </Menu.Item>
-            <Menu.Item>Preview</Menu.Item>
-            <Menu.Item onClick={() => handleDelete(data._id)}>Delete</Menu.Item>
-          </Menu.Dropdown>
-        </Menu>
+            <Menu.Dropdown>
+              <Menu.Item>
+                <p onClick={() => navigate(`/post/${data._id}`)}>Edit Post</p>
+              </Menu.Item>
+              <Menu.Item>Preview</Menu.Item>
+              <Menu.Item onClick={() => handleDelete(data._id)}>
+                Delete
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+        ) : (
+          ""
+        )}
       </div>
 
       <div className="detail">

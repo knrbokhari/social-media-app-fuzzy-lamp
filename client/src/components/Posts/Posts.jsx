@@ -36,7 +36,7 @@ const Posts = () => {
         });
     };
     fetchPosts();
-  }, [dispatch, user._id]);
+  }, [dispatch, user._id, posts]);
 
   // if (!posts) return "No Posts";
   if (params.id) posts = posts.filter((post) => post.userId === params.id);

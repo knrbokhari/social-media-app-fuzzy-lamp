@@ -8,7 +8,7 @@ const EditPost = () => {
   const params = useParams();
   return (
     <div className="home">
-      <ProfileSide />
+      <ProfileSide location={"editPast"} />
       <PostEdit id={params.id} />
       <RightSide />
     </div>

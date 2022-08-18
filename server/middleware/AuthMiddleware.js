@@ -26,6 +26,7 @@ const authMiddleWare = async (req, res, next) => {
       return res.status(403).send({ Message: "Forbidden access" });
     }
     req.body._id = decoded?.id;
+    req.user = decoded?.id;
     next();
   });
 };

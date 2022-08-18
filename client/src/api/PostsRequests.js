@@ -13,13 +13,14 @@ API.interceptors.request.use((req) => {
 });
 
 export const createPost = () => API.post("/posts/");
+export const getPost = (id) => API.get(`/posts/${id}`);
 export const getTimelinePosts = (id) => API.get(`/posts/${id}/timeline`);
 export const likePost = (id, userId) =>
   API.put(`posts/${id}/like`, { userId: userId });
 export const deletePost = (id) =>
   API.delete(`posts/${id}`).then((res) => {
     if (res.status === 200) {
-      toast(res.data);
+      toast.success(res.data);
     }
   });
 export const updatePost = (id) => API.put(`posts/${id}`);

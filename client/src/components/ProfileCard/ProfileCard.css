@@ -18,6 +18,9 @@
 .coverPicture {
   width: 100%;
 }
+.coverPivHe {
+  height: 25rem;
+}
 .addCoverIcon {
   position: absolute;
   bottom: 30px;

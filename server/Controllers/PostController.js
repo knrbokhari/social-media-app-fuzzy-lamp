@@ -17,11 +17,12 @@ export const createPost = async (req, res) => {
 // Get a post
 export const getPost = async (req, res) => {
   const id = req.params.id;
-  const userId = req.body._id;
+  const userId = req.user;
+  console.log(id);
 
   try {
-    if (id === userId) {
-      const post = await PostModel.findById(id);
+    const post = await PostModel.findById(id);
+    if (post.userId === userId) {
       res.status(200).json(post);
     } else {
       res.status(403).json("Action forbidden");
@@ -34,7 +35,7 @@ export const getPost = async (req, res) => {
 // Update a post
 export const updatePost = async (req, res) => {
   const postId = req.params.id;
-  const { userId } = req.body;
+  const userId = req.user;
 
   try {
     const post = await PostModel.findById(postId);
@@ -45,6 +46,8 @@ export const updatePost = async (req, res) => {
       res.status(403).json("Action forbidden");
     }
   } catch (error) {
+    // there was a problem need to fix
+    console.log(error);
     res.status(500).json(error);
   }
 };

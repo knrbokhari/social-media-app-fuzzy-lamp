@@ -15,7 +15,7 @@ const router = express.Router();
 router.post("/", createPost);
 
 // Get a post
-router.get("/:id", getPost);
+router.get("/:id", authMiddleWare, getPost);
 
 // Update a post
 router.put("/:id", authMiddleWare, updatePost);

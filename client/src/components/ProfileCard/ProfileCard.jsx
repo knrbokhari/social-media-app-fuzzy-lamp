@@ -7,6 +7,7 @@ import { MdOutlineAddAPhoto } from "react-icons/md";
 import CoverModul from "../CoverModul/CoverModul";
 import ProfileModal from "../ProfileModul/ProfileModul";
 import * as UserApi from "../../api/UserRequests";
+// import { toast } from "react-toastify";
 
 const ProfileCard = ({ location }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
@@ -18,7 +19,7 @@ const ProfileCard = ({ location }) => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      axios
+      await axios
         .get(`/posts/${id}/timeline`, {
           method: "GET",
           headers: {
@@ -33,7 +34,7 @@ const ProfileCard = ({ location }) => {
           }
         })
         .catch((err) => {
-          // toast(err.message);
+          // console.log(err);
         });
     };
     fetchPosts();
@@ -46,6 +47,7 @@ const ProfileCard = ({ location }) => {
           setCurrentUser(user);
         } else {
           const profileUser = await UserApi.getUser(id);
+          console.log(profileUser);
           setCurrentUser(profileUser.data);
         }
       } else {
@@ -54,6 +56,8 @@ const ProfileCard = ({ location }) => {
     };
     fetchUser();
   }, [id, user]);
+
+  console.log(currentUser);
 
   const {
     firstname,
@@ -75,7 +79,9 @@ const ProfileCard = ({ location }) => {
               : "https://i.ibb.co/mFBLC5L/golden-stars-glitter-yellow-paper-background-festive-holiday-bright-backdrop-155694236.jpg"
           }
           alt=""
-          className="coverPicture"
+          className={`coverPicture ${
+            location === "ProfilePage" ? "coverPivHe" : ""
+          }`}
         />
         {id === user._id && location && (
           <MdOutlineAddAPhoto

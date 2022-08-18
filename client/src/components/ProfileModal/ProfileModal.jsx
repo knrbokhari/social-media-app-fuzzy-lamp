@@ -3,6 +3,7 @@ import { Modal, useMantineTheme } from "@mantine/core";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { updateUser } from "../../actions/UserAction";
+import { toast } from "react-toastify";
 
 const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
   const theme = useMantineTheme();
@@ -21,10 +22,9 @@ const ProfileModal = ({ modalOpened, setModalOpened, data }) => {
     e.preventDefault();
     let UserData = formData;
     dispatch(updateUser(param.id, UserData));
-
+    toast.success("UPDATING SUCCESS");
     setModalOpened(false);
   };
-  // console.log(formData);
 
   return (
     <Modal

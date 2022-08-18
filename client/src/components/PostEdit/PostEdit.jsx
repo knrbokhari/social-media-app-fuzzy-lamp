@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 const PostEdit = ({ id }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authReducer.authData);
-  const loading = useSelector((state) => state.PostReducer.uploading);
 
   const [post, setPost] = useState([]);
   const [image, setImage] = useState(null);
@@ -21,9 +20,8 @@ const PostEdit = ({ id }) => {
 
   useEffect(() => {
     const fetchPost = async () => {
-      axios
+      await axios
         .get(`http://localhost:5000/posts/${id}`, {
-          method: "GET",
           headers: {
             Authorization: `Bearer ${
               JSON.parse(localStorage.getItem("profile")).token
@@ -32,13 +30,16 @@ const PostEdit = ({ id }) => {
         })
         .then((res) => {
           setPost(res.data);
+          console.log(res);
         })
         .catch((err) => {
-          toast.error(err.message);
+          console.log(err);
         });
     };
     fetchPost();
   }, [id]);
+
+  console.log(post);
 
   const onImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -65,8 +66,24 @@ const PostEdit = ({ id }) => {
   const createPost = async () => {
     if (data.desc || data.image) {
       dispatch({ type: "UPLOAD_START" });
+      const headers = {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("profile")).token
+        }`,
+      };
       await axios
-        .put(`http://localhost:5000/posts/${id}`, data)
+        .put(
+          `http://localhost:5000/posts/${id}`,
+          data,
+          { headers }
+          // {
+          //   headers: {
+          //     Authorization: `Bearer ${
+          //       JSON.parse(localStorage.getItem("profile")).token
+          //     }`,
+          //   },
+          // }
+        )
         .then((res) => {
           setImage(null);
           postRef.current.value = "";
@@ -77,6 +94,7 @@ const PostEdit = ({ id }) => {
         .catch((err) => {
           dispatch({ type: "UPLOAD_FAIL" });
           toast.error("UPLOAD FAIL");
+          console.log(err);
         });
     } else {
       toast("please give us an image or text..");
@@ -109,8 +127,6 @@ const PostEdit = ({ id }) => {
     }
   };
 
-  //   console.log(post);
-
   return (
     <div className="PostShare" style={{ height: "89vh", display: "block" }}>
       <div className="">
@@ -136,10 +152,9 @@ const PostEdit = ({ id }) => {
         <button
           className="button ps-button"
           onClick={handleShare}
-          disabled={loading}
           style={{ fontSize: "20px" }}
         >
-          {loading ? "Updating" : "Update"}
+          Update
         </button>
       </div>
     </div>

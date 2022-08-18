@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, useMantineTheme } from "@mantine/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { updateUser } from "../../actions/UserAction";
 import { toast } from "react-toastify";
@@ -11,7 +11,7 @@ const ProfileModal = ({ profileModalOpened, setProfileModalOpened }) => {
   const dispatch = useDispatch();
   const param = useParams();
 
-  const { user } = useSelector((state) => state.authReducer.authData);
+  // const { user } = useSelector((state) => state.authReducer.authData);
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
@@ -43,7 +43,7 @@ const ProfileModal = ({ profileModalOpened, setProfileModalOpened }) => {
           }
         })
         .catch((error) => {
-          toast.error(error.message);
+          // toast.error(error.message);
         });
     }
   };
