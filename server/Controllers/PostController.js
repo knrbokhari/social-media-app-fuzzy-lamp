@@ -35,7 +35,6 @@ export const getPost = async (req, res) => {
 export const updatePost = async (req, res) => {
   const postId = req.params.id;
   const userId = req.user;
-  console.log(req.body);
 
   try {
     const post = await PostModel.findById(postId);
@@ -55,7 +54,7 @@ export const updatePost = async (req, res) => {
 // Delete a post
 export const deletePost = async (req, res) => {
   const id = req.params.id;
-  const userId = req.body._id;
+  const userId = req.user;
 
   try {
     const post = await PostModel.findById(id);
@@ -75,7 +74,7 @@ export const deletePost = async (req, res) => {
 // like/dislike a post
 export const likeAndDislikePost = async (req, res) => {
   const id = req.params.id;
-  const { userId } = req.body;
+  const userId = req.user;
 
   try {
     const post = await PostModel.findById(id);
