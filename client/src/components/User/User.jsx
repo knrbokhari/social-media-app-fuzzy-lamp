@@ -30,7 +30,10 @@ const User = ({ person }) => {
         />
         <div className="name">
           <span>
-            <Link to={`/profile/${person._id}`}>
+            <Link
+              to={`/profile/${person._id}`}
+              style={{ textDecoration: "none", color: "#242d49" }}
+            >
               {person.firstname + " " + person.lastname}
             </Link>
           </span>

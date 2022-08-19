@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import { MdClear } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const PostEdit = ({ id }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authReducer.authData);
 
   const [post, setPost] = useState([]);
@@ -39,7 +39,7 @@ const PostEdit = ({ id }) => {
     fetchPost();
   }, [id]);
 
-  console.log(post);
+  // console.log(post);
 
   const onImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -65,34 +65,23 @@ const PostEdit = ({ id }) => {
   // crate new post
   const createPost = async () => {
     if (data.desc || data.image) {
-      dispatch({ type: "UPLOAD_START" });
-      const headers = {
-        Authorization: `Bearer ${
-          JSON.parse(localStorage.getItem("profile")).token
-        }`,
-      };
       await axios
-        .put(
-          `http://localhost:5000/posts/${id}`,
-          data,
-          { headers }
-          // {
-          //   headers: {
-          //     Authorization: `Bearer ${
-          //       JSON.parse(localStorage.getItem("profile")).token
-          //     }`,
-          //   },
-          // }
-        )
+        .put(`http://localhost:5000/posts/${id}`, data, {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("profile")).token
+            }`,
+          },
+        })
         .then((res) => {
           setImage(null);
           postRef.current.value = "";
           navigate("/");
           toast.success("UPLOAD SUCCESS");
-          dispatch({ type: "UPLOAD_SUCCESS" });
+          // dispatch({ type: "UPLOAD_SUCCESS" });
         })
         .catch((err) => {
-          dispatch({ type: "UPLOAD_FAIL" });
+          // dispatch({ type: "UPLOAD_FAIL" });
           toast.error("UPLOAD FAIL");
           console.log(err);
         });

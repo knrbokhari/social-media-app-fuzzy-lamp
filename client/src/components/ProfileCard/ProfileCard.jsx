@@ -57,8 +57,6 @@ const ProfileCard = ({ location }) => {
     fetchUser();
   }, [id, user]);
 
-  console.log(currentUser);
-
   const {
     firstname,
     lastname,

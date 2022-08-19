@@ -42,10 +42,6 @@ export const updateUser = async (req, res) => {
 
   if (id === _id || currentUserAdminStatus) {
     try {
-      //
-
-      // console.log(req.body);
-
       if (password) {
         const salt = await bcrypt.genSalt(10);
         req.body.password = await bcrypt.hash(password, salt);

@@ -18,7 +18,6 @@ export const createPost = async (req, res) => {
 export const getPost = async (req, res) => {
   const id = req.params.id;
   const userId = req.user;
-  console.log(id);
 
   try {
     const post = await PostModel.findById(id);
@@ -36,6 +35,7 @@ export const getPost = async (req, res) => {
 export const updatePost = async (req, res) => {
   const postId = req.params.id;
   const userId = req.user;
+  console.log(req.body);
 
   try {
     const post = await PostModel.findById(postId);
@@ -94,7 +94,6 @@ export const likeAndDislikePost = async (req, res) => {
 // Get Timeline Posts
 export const getTimelinePosts = async (req, res) => {
   const userId = req.params.id;
-  // console.log(req);
 
   try {
     const currentUserPosts = await PostModel.find({ userId: userId });
