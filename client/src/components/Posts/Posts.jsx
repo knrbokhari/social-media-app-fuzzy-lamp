@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./Posts.css";
 import Post from "../Post/Post";
@@ -6,12 +7,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { logout } from "../../actions/AuthAction";
 
-const Posts = () => {
+const Posts = ({ refetchPosts, setRefetchPosts }) => {
   const params = useParams();
   let [posts, setPosts] = useState([]);
   const { user } = useSelector((state) => state.authReducer.authData);
   const dispatch = useDispatch();
-  const [refetchPosts, setRefetchPosts] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {

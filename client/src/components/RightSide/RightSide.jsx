@@ -15,7 +15,7 @@ const RightSide = ({ location }) => {
   return (
     <div className="RightSide">
       <div className="navIcons">
-        <Link to="/home">
+        <Link to="/">
           <AiFillHome
             style={{
               fontSize: "25px",

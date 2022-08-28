@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 // import { logout } from "../../actions/AuthAction";
 import { toast } from "react-toastify";
 
-const PostShare = () => {
+const PostShare = ({ setRefetchPosts }) => {
   // const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authReducer.authData);
   // const loading = useSelector((state) => state.PostReducer.uploading);
@@ -76,6 +76,7 @@ const PostShare = () => {
           setImage(null);
           postRef.current.value = "";
           // dispatch({ type: "UPLOAD_SUCCESS" });
+          setRefetchPosts(true);
           toast.success("UPLOAD SUCCESS");
         })
         .catch((err) => {

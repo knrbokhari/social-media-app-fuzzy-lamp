@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
@@ -9,7 +10,7 @@ import ProfileModal from "../ProfileModul/ProfileModul";
 import * as UserApi from "../../api/UserRequests";
 // import { toast } from "react-toastify";
 
-const ProfileCard = ({ location }) => {
+const ProfileCard = ({ location, refetchPosts, setRefetchPosts }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
   const [posts, setPosts] = useState([]);
   const [covermodalOpened, setCoverModalOpened] = useState(false);
@@ -38,8 +39,11 @@ const ProfileCard = ({ location }) => {
           // console.log(err);
         });
     };
+    if (refetchPosts) {
+      setRefetchPosts(false);
+    }
     fetchPosts();
-  }, [id]);
+  }, [id, refetchPosts]);
 
   useEffect(() => {
     const fetchUser = async () => {
