@@ -1,7 +1,9 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const API = axios.create({ baseURL: "http://localhost:5000" });
+const API = axios.create({
+  baseURL: "http://localhost:5000",
+});
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
@@ -14,7 +16,7 @@ API.interceptors.request.use((req) => {
 
 export const createPost = () => API.post("/posts/");
 export const getPost = (id) => API.get(`/posts/${id}`);
-export const getTimelinePosts = (id) => API.get(`/posts/${id}/timeline`);
+export const getTimelinePosts = (id) => API.get(`/posts/timeline/${id}`);
 export const likePost = (id, userId) =>
   API.put(`posts/${id}/like`, { userId: userId });
 export const deletePost = (id) =>

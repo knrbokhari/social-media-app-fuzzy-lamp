@@ -55,3 +55,7 @@ function App() {
 }
 
 export default App;
+
+// http://localhost:5000
+
+// https://cryptic-atoll-67099.herokuapp.com

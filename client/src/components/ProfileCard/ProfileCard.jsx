@@ -20,7 +20,7 @@ const ProfileCard = ({ location }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       await axios
-        .get(`/posts/${id}/timeline`, {
+        .get(`http://localhost:5000/posts/timeline/${id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${
@@ -29,6 +29,7 @@ const ProfileCard = ({ location }) => {
           },
         })
         .then((res) => {
+          // console.log(res);
           if (res.status === 200) {
             setPosts(res.data);
           }

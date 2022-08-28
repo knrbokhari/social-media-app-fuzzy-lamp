@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
 import { Modal, useMantineTheme } from "@mantine/core";
 import { getAllUser } from "../../api/UserRequests";

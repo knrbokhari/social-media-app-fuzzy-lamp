@@ -15,7 +15,7 @@ const Posts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       await axios
-        .get(`/posts/${user._id}/timeline`, {
+        .get(`http://localhost:5000/posts/timeline/${user._id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${
@@ -24,9 +24,9 @@ const Posts = () => {
           },
         })
         .then((res) => {
+          // console.log(res);
           if (res.status === 200) {
             setPosts(res.data);
-            // setDeletedPost(false);
           }
         })
         .catch((err) => {
@@ -36,7 +36,7 @@ const Posts = () => {
         });
     };
     fetchPosts();
-  }, [dispatch, user._id, posts]);
+  }, [user._id]);
 
   // if (!posts) return "No Posts";
   if (params.id) posts = posts.filter((post) => post.userId === params.id);
