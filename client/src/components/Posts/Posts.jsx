@@ -11,6 +11,7 @@ const Posts = () => {
   let [posts, setPosts] = useState([]);
   const { user } = useSelector((state) => state.authReducer.authData);
   const dispatch = useDispatch();
+  const [refetchPosts, setRefetchPosts] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -35,8 +36,11 @@ const Posts = () => {
           }
         });
     };
+    if (refetchPosts) {
+      setRefetchPosts(false);
+    }
     fetchPosts();
-  }, [user._id]);
+  }, [user._id, refetchPosts, dispatch]);
 
   // if (!posts) return "No Posts";
   if (params.id) posts = posts.filter((post) => post.userId === params.id);
@@ -45,7 +49,9 @@ const Posts = () => {
     <div className="Posts">
       {posts.length !== 0 ? (
         posts?.map((post, id) => {
-          return <Post data={post} key={id} />;
+          return (
+            <Post data={post} setRefetchPosts={setRefetchPosts} key={id} />
+          );
         })
       ) : (
         <p style={{ textAlign: "center" }}>No Posts</p>

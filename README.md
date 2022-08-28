@@ -25,5 +25,5 @@
 * It is desktop, tablet and mobile responsive.
 * Users can Follow and UnFollow someone.
 * Users can see someone's post by following them.
-* User can create posts, update posts and delete her posts.
+* Users can create posts, update posts and delete their posts.
 * Users can update their profile picture, cover photo and their information.

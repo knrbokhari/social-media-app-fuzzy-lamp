@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
 
-const Post = ({ data }) => {
+const Post = ({ data, setRefetchPosts }) => {
   const { user } = useSelector((state) => state?.authReducer?.authData);
   const [liked, setLiked] = useState(data?.likes?.includes(user._id));
   const [likes, setLikes] = useState(data?.likes?.length);
@@ -50,7 +50,7 @@ const Post = ({ data }) => {
   };
 
   const handleDelete = (id) => {
-    deletePost(id);
+    deletePost(id, setRefetchPosts);
   };
 
   return (

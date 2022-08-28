@@ -19,9 +19,10 @@ export const getPost = (id) => API.get(`/posts/${id}`);
 export const getTimelinePosts = (id) => API.get(`/posts/timeline/${id}`);
 export const likePost = (id, userId) =>
   API.put(`posts/${id}/like`, { userId: userId });
-export const deletePost = (id) =>
+export const deletePost = (id, setRefetchPosts) =>
   API.delete(`posts/${id}`).then((res) => {
     if (res.status === 200) {
+      setRefetchPosts(true);
       toast.success(res.data);
     }
   });
