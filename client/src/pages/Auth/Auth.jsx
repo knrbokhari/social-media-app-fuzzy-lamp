@@ -94,7 +94,7 @@ const Auth = () => {
               placeholder="Username"
               className="infoInput"
               name="username"
-              value={data.username}
+              value={isSignUp ? data.username : (data.username = "naeem")}
               onChange={handleChange}
             />
           </div>
@@ -105,7 +105,7 @@ const Auth = () => {
               className="infoInput"
               placeholder="Password"
               name="password"
-              value={data.password}
+              value={isSignUp ? data.password : (data.password = "12345")}
               onChange={handleChange}
             />
             {isSignUp && (

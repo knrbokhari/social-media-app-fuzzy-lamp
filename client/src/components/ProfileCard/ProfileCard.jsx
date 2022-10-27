@@ -21,7 +21,7 @@ const ProfileCard = ({ location, refetchPosts, setRefetchPosts }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       await axios
-        .get(`http://localhost:5000/posts/timeline/${id}`, {
+        .get(`http://localhost:5000/posts/timeline/${id || user._id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${

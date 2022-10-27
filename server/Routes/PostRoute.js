@@ -24,7 +24,7 @@ router.put("/:id", authMiddleWare, updatePost);
 router.delete("/:id", authMiddleWare, deletePost);
 
 // like/dislike a post
-router.put("/:id/like", likeAndDislikePost);
+router.put("/:id/like", authMiddleWare, likeAndDislikePost);
 
 // Get Timeline POsts
 router.get("/timeline/:id", authMiddleWare, getTimelinePosts);
