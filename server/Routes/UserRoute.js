@@ -29,4 +29,8 @@ router.put("/:id/follow", authMiddleWare, followUser);
 // UnFollow a User
 router.put("/:id/unfollow", authMiddleWare, UnFollowUser);
 
-export default router;
+const configureUserRoutes = (app) => {
+  app.use("/user", router);
+};
+
+export default configureUserRoutes;

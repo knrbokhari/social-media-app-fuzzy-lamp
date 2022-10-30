@@ -12,7 +12,6 @@ const Posts = ({ refetchPosts, setRefetchPosts }) => {
   let [posts, setPosts] = useState([]);
   const { user } = useSelector((state) => state.authReducer.authData);
   const dispatch = useDispatch();
-  console.log(`http://localhost:5000/posts/timeline/${user._id}`);
 
   useEffect(() => {
     const fetchPosts = async () => {

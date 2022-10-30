@@ -8,6 +8,7 @@ import Profile from "./pages/Profile/Profile";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Chat from "./pages/Chat/Chat";
 
 function App() {
   const user = useSelector((state) => state.authReducer.authData);
@@ -33,6 +34,10 @@ function App() {
         <Route
           path="/follower"
           element={user ? <Follower /> : <Navigate to="../auth" />}
+        />
+        <Route
+          path="/chat"
+          element={user ? <Chat /> : <Navigate to="../auth" />}
         />
         <Route
           path="*"

@@ -29,4 +29,8 @@ router.put("/:id/like", authMiddleWare, likeAndDislikePost);
 // Get Timeline POsts
 router.get("/timeline/:id", authMiddleWare, getTimelinePosts);
 
-export default router;
+const configurePostRoutes = (app) => {
+  app.use("/posts", router);
+};
+
+export default configurePostRoutes;

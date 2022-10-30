@@ -7,4 +7,8 @@ router.post("/", addMessage);
 
 router.get("/:chatId", getMessages);
 
-export default router;
+const configureMessageRoutes = (app) => {
+  app.use("/message", router);
+};
+
+export default configureMessageRoutes;

@@ -1,19 +1,16 @@
-import React, { useState } from "react";
-import "./RightSide.css";
-import { AiFillHome, AiOutlineComment } from "react-icons/ai";
-import { FaUserFriends } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
-import TrendCard from "../TrendCard/TrendCard";
-import ShareModal from "../ShareModal/ShareModal";
+import React from "react";
 import { Link } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai";
+import { FaUserFriends } from "react-icons/fa";
+import { AiOutlineComment } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 
-const RightSide = ({ location }) => {
+const NavIcons = () => {
   const user = useSelector((state) => state.authReducer.authData.user);
 
-  const [modalOpened, setModalOpened] = useState(false);
   return (
-    <div className="RightSide">
+    <div>
       <div className="navIcons">
         <Link to="/">
           <AiFillHome
@@ -52,18 +49,8 @@ const RightSide = ({ location }) => {
           />
         </Link>
       </div>
-
-      <TrendCard />
-
-      <button
-        className="button r-button ShareModal"
-        onClick={() => setModalOpened(true)}
-      >
-        Share
-      </button>
-      <ShareModal modalOpened={modalOpened} setModalOpened={setModalOpened} />
     </div>
   );
 };
 
-export default RightSide;
+export default NavIcons;

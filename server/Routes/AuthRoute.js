@@ -8,4 +8,8 @@ router.post("/register", registerUser);
 // login User
 router.post("/login", loginUser);
 
-export default router;
+const configureAuthRoutes = (app) => {
+  app.use("/auth", router);
+};
+
+export default configureAuthRoutes;
