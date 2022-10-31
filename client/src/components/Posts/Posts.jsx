@@ -16,7 +16,7 @@ const Posts = ({ refetchPosts, setRefetchPosts }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       await axios
-        .get(`http://localhost:5000/posts/timeline/${user._id}`, {
+        .get(`${process.env.REACT_APP_baseUrl}posts/timeline/${user._id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${

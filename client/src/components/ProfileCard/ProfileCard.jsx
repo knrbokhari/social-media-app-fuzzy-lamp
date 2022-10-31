@@ -8,7 +8,10 @@ import { MdOutlineAddAPhoto } from "react-icons/md";
 import CoverModul from "../CoverModul/CoverModul";
 import ProfileModal from "../ProfileModul/ProfileModul";
 import * as UserApi from "../../api/UserRequests";
+import { BsMessenger } from "react-icons/bs";
+import { createChat } from "../../api/ChatRequests";
 // import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ProfileCard = ({ location, refetchPosts, setRefetchPosts }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
@@ -17,18 +20,22 @@ const ProfileCard = ({ location, refetchPosts, setRefetchPosts }) => {
   const [profileModalOpened, setProfileModalOpened] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
       await axios
-        .get(`http://localhost:5000/posts/timeline/${id || user._id}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem("profile")).token
-            }`,
-          },
-        })
+        .get(
+          `${process.env.REACT_APP_baseUrl}posts/timeline/${id || user._id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${
+                JSON.parse(localStorage.getItem("profile")).token
+              }`,
+            },
+          }
+        )
         .then((res) => {
           // console.log(res);
           if (res.status === 200) {
@@ -61,6 +68,11 @@ const ProfileCard = ({ location, refetchPosts, setRefetchPosts }) => {
     };
     fetchUser();
   }, [id, user]);
+
+  const handleMessage = () => {
+    createChat({ senderId: user._id, receiverId: id });
+    navigate("/chat");
+  };
 
   const {
     firstname,
@@ -144,7 +156,15 @@ const ProfileCard = ({ location, refetchPosts, setRefetchPosts }) => {
               </div>
             </>
           )}
+          <div className="vl"></div>
+          <div className="follow">
+            <BsMessenger
+              onClick={handleMessage}
+              style={{ width: "25px", height: "25px", cursor: "pointer" }}
+            />
+          </div>
         </div>
+
         <hr />
       </div>
       {location === "ProfilePage" ? (

@@ -42,6 +42,7 @@ body {
   border-radius: 0.5rem;
   background: var(--buttonBg);
   transition: all 100ms ease-out;
+  padding: 5px 8px;
 }
 
 .button:hover {

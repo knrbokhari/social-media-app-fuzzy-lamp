@@ -71,7 +71,7 @@ const PostShare = ({ setRefetchPosts }) => {
     if (data.desc || data.image) {
       // dispatch({ type: "UPLOAD_START" });
       await axios
-        .post("http://localhost:5000/posts", data)
+        .post(`${process.env.REACT_APP_baseUrl}posts`, data)
         .then((res) => {
           setImage(null);
           postRef.current.value = "";

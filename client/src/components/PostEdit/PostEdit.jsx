@@ -21,7 +21,7 @@ const PostEdit = ({ id }) => {
   useEffect(() => {
     const fetchPost = async () => {
       await axios
-        .get(`http://localhost:5000/posts/${id}`, {
+        .get(`${process.env.REACT_APP_baseUrl}posts/${id}`, {
           headers: {
             Authorization: `Bearer ${
               JSON.parse(localStorage.getItem("profile")).token
@@ -66,7 +66,7 @@ const PostEdit = ({ id }) => {
   const createPost = async () => {
     if (data.desc || data.image) {
       await axios
-        .put(`http://localhost:5000/posts/${id}`, data, {
+        .put(`${process.env.REACT_APP_baseUrl}posts/${id}`, data, {
           headers: {
             Authorization: `Bearer ${
               JSON.parse(localStorage.getItem("profile")).token

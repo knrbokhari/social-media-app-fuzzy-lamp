@@ -3,6 +3,7 @@ import "./ChatBox.css";
 import InputEmoji from "react-input-emoji";
 import { getUser } from "../../api/UserRequests";
 import { addMessage, getMessages } from "../../api/MessageRequests";
+import { format } from "timeago.js";
 
 const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
   const [userData, setUserData] = useState(null);
@@ -57,7 +58,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
       text: newMessage,
       chatId: chat._id,
     };
-    
+
     const receiverId = chat.members.find((id) => id !== currentUser);
     // send message to socket server
     setSendMessage({ ...message, receiverId });
@@ -123,7 +124,8 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
                         : "message"
                     }
                   >
-                    <span>{message.text}</span> <span>{message.createdAt}</span>
+                    <span>{message.text}</span>{" "}
+                    <span>{format(message.createdAt)}</span>
                   </div>
                 </>
               ))}

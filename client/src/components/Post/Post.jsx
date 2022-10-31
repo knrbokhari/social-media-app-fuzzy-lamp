@@ -25,7 +25,7 @@ const Post = ({ data, setRefetchPosts }) => {
   useEffect(() => {
     const fetchPostUser = async () => {
       await axios
-        .get(`http://localhost:5000/user/${data.userId}`, {
+        .get(`${process.env.REACT_APP_baseUrl}user/${data.userId}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${
