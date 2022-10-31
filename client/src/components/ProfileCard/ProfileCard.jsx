@@ -156,13 +156,21 @@ const ProfileCard = ({ location, refetchPosts, setRefetchPosts }) => {
               </div>
             </>
           )}
-          <div className="vl"></div>
-          <div className="follow">
-            <BsMessenger
-              onClick={handleMessage}
-              style={{ width: "25px", height: "25px", cursor: "pointer" }}
-            />
-          </div>
+          {location === "ProfilePage" && id !== user._id && (
+            <>
+              <div className="vl"></div>
+              <div className="follow">
+                <BsMessenger
+                  onClick={handleMessage}
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                    cursor: "pointer",
+                  }}
+                />
+              </div>
+            </>
+          )}
         </div>
 
         <hr />
