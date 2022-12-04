@@ -12,7 +12,7 @@ const NavIcons = () => {
   return (
     <div>
       <div className="navIcons">
-        <Link to="/">
+        <Link to="/home">
           <AiFillHome
             style={{
               fontSize: "25px",

@@ -21,23 +21,23 @@ function App() {
           path="/"
           element={user ? <Navigate to="home" /> : <Navigate to="auth" />}
         /> */}
-        <Route path="/" element={user ? <Home /> : <Navigate to="../auth" />} />
-        <Route path="/auth" element={user ? <Navigate to="../" /> : <Auth />} />
+        <Route path="/home" element={user ? <Home /> : <Navigate to="../" />} />
+        <Route path="/" element={user ? <Navigate to="../home" /> : <Auth />} />
         <Route
           path="/profile/:id"
-          element={user ? <Profile /> : <Navigate to="../auth" />}
+          element={user ? <Profile /> : <Navigate to="../" />}
         />
         <Route
           path="/post/:id"
-          element={user ? <EditPost /> : <Navigate to="../auth" />}
+          element={user ? <EditPost /> : <Navigate to="../" />}
         />
         <Route
           path="/follower"
-          element={user ? <Follower /> : <Navigate to="../auth" />}
+          element={user ? <Follower /> : <Navigate to="../" />}
         />
         <Route
           path="/chat"
-          element={user ? <Chat /> : <Navigate to="../auth" />}
+          element={user ? <Chat /> : <Navigate to="../" />}
         />
         <Route
           path="*"
